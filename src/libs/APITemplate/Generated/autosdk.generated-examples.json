@@ -1,0 +1,114 @@
+{
+  "Examples": [
+    {
+      "Order": 1,
+      "Title": "Create an Image",
+      "Slug": "create-image",
+      "Description": "This endpoint creates a JPEG file(along with PNG) with JSON data and your template",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cobject\u003E(\n    @\u0022{\n  \u0022\u0022overrides\u0022\u0022: [\n    {\n      \u0022\u0022name\u0022\u0022: \u0022\u0022text_1\u0022\u0022,\n      \u0022\u0022text\u0022\u0022: \u0022\u0022hello world\u0022\u0022,\n      \u0022\u0022textBackgroundColor\u0022\u0022: \u0022\u0022rgba(246, 243, 243, 0)\u0022\u0022\n    },\n    {\n      \u0022\u0022name\u0022\u0022: \u0022\u0022image_1\u0022\u0022,\n      \u0022\u0022src\u0022\u0022: \u0022\u0022https://via.placeholder.com/150\u0022\u0022\n    }\n  ]\n}\u0022)!;\n\nvar response = await client.ApiIntegration.CreateImageAsync(\n    templateId: \u002200377b2b1e0ee394\u0022,\n    request: request,\n    outputImageType: \u00221\u0022,\n    expiration: 5,\n    cloudStorage: \u00221\u0022,\n    resizeImages: global::System.Text.Json.JsonSerializer.Deserialize\u003Cbool\u003E(\n    @\u0022\u0022\u00220\u0022\u0022\u0022)!,\n    resizeMaxWidth: \u00221000\u0022,\n    resizeMaxHeight: \u00221000\u0022,\n    resizeFormat: \u0022jpeg\u0022,\n    meta: \u0022inv-iwj343jospig\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "create-image",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 2,
+      "Title": "Create a PDF",
+      "Slug": "create-pdf",
+      "Description": "This endpoint creates a PDF file with JSON data and your template. We support synchoronus and asynchronous PDF generation.",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cobject\u003E(\n    @\u0022{\n  \u0022\u0022invoice_number\u0022\u0022: \u0022\u0022INV38379\u0022\u0022,\n  \u0022\u0022date\u0022\u0022: \u0022\u00222021-09-30\u0022\u0022,\n  \u0022\u0022currency\u0022\u0022: \u0022\u0022USD\u0022\u0022,\n  \u0022\u0022total_amount\u0022\u0022: 82542.56\n}\u0022)!;\n\nvar response = await client.ApiIntegration.CreatePdfAsync(\n    templateId: \u002200377b2b1e0ee394\u0022,\n    request: request,\n    exportType: \u0022json\u0022,\n    exportInBase64: \u00220\u0022,\n    expiration: 5,\n    outputHtml: \u00220\u0022,\n    outputFormat: \u0022pdf\u0022,\n    filename: \u0022invoice_89326.pdf\u0022,\n    directDownload: \u00220\u0022,\n    cloudStorage: \u00221\u0022,\n    loadDataFrom: \u0022https://mydata.com/get-json-data?invoice=j3hbski2uia\u0022,\n    extractLink: \u00220\u0022,\n    imageResampleRes: \u0022150\u0022,\n    resizeImages: global::System.Text.Json.JsonSerializer.Deserialize\u003Cbool\u003E(\n    @\u0022\u0022\u00220\u0022\u0022\u0022)!,\n    resizeMaxWidth: \u00221000\u0022,\n    resizeMaxHeight: \u00221000\u0022,\n    resizeFormat: \u0022jpeg\u0022,\n    meta: \u0022inv-iwj343jospig\u0022,\n    async: \u00220\u0022,\n    webhookUrl: \u0022https://yourwebserver.com\u0022,\n    webhookMethod: \u0022GET\u0022,\n    webhookHeaders: \u0022eyJ3b3JrZmxvdy1hcGkta2V5Ijoia2V5X0VLc3MxNWJKRXFBMkRHYzM4bkNXNzlaRER1ZUZJeiJ9\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "create-pdf",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 3,
+      "Title": "Create a PDF from HTML",
+      "Slug": "create-pdf-from-html",
+      "Description": "- This endpoint creates a PDF file from HTML with JSON data",
+      "Language": "http",
+      "Code": "### Create a PDF from HTML\n# @name create-pdf-from-html\nPOST {{host}}/v2/create-pdf-from-html?export_type=json\u0026expiration=5\u0026output_format=pdf\u0026filename=invoice_89326.pdf\u0026direct_download=0\u0026cloud_storage=1\u0026generation_delay={{generation_delay}}\u0026image_resample_res=150\u0026resize_images=0\u0026resize_max_width=1000\u0026resize_max_height=1000\u0026resize_format=jpeg\u0026postaction_s3_filekey={{postaction_s3_filekey}}\u0026postaction_s3_bucket={{postaction_s3_bucket}}\u0026postaction_enabled={{postaction_enabled}}\u0026meta=inv-iwj343jospig\u0026async=0\u0026webhook_url=https://yourwebserver.com\u0026webhook_method=GET\nX-API-KEY: {{api_key}}\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022body\u0022: \u0022\\u003Ch1\\u003E hello world {{name}} \\u003C/h1\\u003E\u0022,\n  \u0022css\u0022: \u0022\\u003Cstyle\\u003E.bg{background: red};\\u003C/style\\u003E\u0022,\n  \u0022data\u0022: {\n    \u0022name\u0022: \u0022This is a title\u0022\n  },\n  \u0022settings\u0022: {\n    \u0022paper_size\u0022: \u0022A4\u0022,\n    \u0022orientation\u0022: \u00221\u0022,\n    \u0022header_font_size\u0022: \u00229px\u0022,\n    \u0022margin_top\u0022: \u002240\u0022,\n    \u0022margin_right\u0022: \u002210\u0022,\n    \u0022margin_bottom\u0022: \u002240\u0022,\n    \u0022margin_left\u0022: \u002210\u0022,\n    \u0022print_background\u0022: \u00221\u0022,\n    \u0022displayHeaderFooter\u0022: true,\n    \u0022custom_header\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022,\n    \u0022custom_footer\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022\n  }\n}\n\n## Responses\n# 200\n# Description: Returns status and output file\n# Content-Type: application/json\n# default\n# Description: unexpected error\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create-pdf-from-html",
+      "Setup": null
+    },
+    {
+      "Order": 4,
+      "Title": "Create a PDF from Markdown",
+      "Slug": "create-pdf-from-markdown",
+      "Description": "- This endpoint creates a PDF file from Markdown",
+      "Language": "http",
+      "Code": "### Create a PDF from Markdown\n# @name create-pdf-from-markdown\nPOST {{host}}/v2/create-pdf-from-markdown?export_type=json\u0026expiration=5\u0026output_format=pdf\u0026filename=invoice_89326.pdf\u0026direct_download=0\u0026cloud_storage=1\u0026generation_delay={{generation_delay}}\u0026image_resample_res=150\u0026resize_images=0\u0026resize_max_width=1000\u0026resize_max_height=1000\u0026resize_format=jpeg\u0026postaction_s3_filekey={{postaction_s3_filekey}}\u0026postaction_s3_bucket={{postaction_s3_bucket}}\u0026postaction_enabled={{postaction_enabled}}\u0026meta=inv-iwj343jospig\u0026async=0\u0026webhook_url=https://yourwebserver.com\u0026webhook_method=GET\nX-API-KEY: {{api_key}}\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022body\u0022: \u0022# {{lang}} syntax guide\\n\\n# This is a Heading h1\\n## This is a Heading h2\u0022,\n  \u0022data\u0022: {\n    \u0022lang\u0022: \u0022Markdown\u0022\n  },\n  \u0022css\u0022: \u0022\\u003Cstyle\\u003E.bg{background: red};\\u003C/style\\u003E\u0022,\n  \u0022settings\u0022: {\n    \u0022paper_size\u0022: \u0022A4\u0022,\n    \u0022orientation\u0022: \u00221\u0022,\n    \u0022header_font_size\u0022: \u00229px\u0022,\n    \u0022margin_top\u0022: \u002240\u0022,\n    \u0022margin_right\u0022: \u002210\u0022,\n    \u0022margin_bottom\u0022: \u002240\u0022,\n    \u0022margin_left\u0022: \u002210\u0022,\n    \u0022print_background\u0022: \u00221\u0022,\n    \u0022displayHeaderFooter\u0022: true,\n    \u0022custom_header\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022,\n    \u0022custom_footer\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022\n  }\n}\n\n## Responses\n# 200\n# Description: Returns status and output file\n# Content-Type: application/json\n# default\n# Description: unexpected error\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create-pdf-from-markdown",
+      "Setup": null
+    },
+    {
+      "Order": 5,
+      "Title": "Create a PDF from URL",
+      "Slug": "create-pdf-from-url",
+      "Description": "- This endpoint creates a PDF file from a URL",
+      "Language": "http",
+      "Code": "### Create a PDF from URL\n# @name create-pdf-from-url\nPOST {{host}}/v2/create-pdf-from-url?export_type=json\u0026expiration=5\u0026output_format=pdf\u0026filename=invoice_89326.pdf\u0026direct_download=0\u0026cloud_storage=1\u0026generation_delay={{generation_delay}}\u0026image_resample_res=150\u0026resize_images=0\u0026resize_max_width=1000\u0026resize_max_height=1000\u0026resize_format=jpeg\u0026postaction_s3_filekey={{postaction_s3_filekey}}\u0026postaction_s3_bucket={{postaction_s3_bucket}}\u0026postaction_enabled={{postaction_enabled}}\u0026meta=inv-iwj343jospig\u0026async=0\u0026webhook_url=https://yourwebserver.com\u0026webhook_method=GET\nX-API-KEY: {{api_key}}\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022url\u0022: \u0022https://en.wikipedia.org/wiki/Sceloporus_malachiticus\u0022,\n  \u0022settings\u0022: {\n    \u0022paper_size\u0022: \u0022A4\u0022,\n    \u0022orientation\u0022: \u00221\u0022,\n    \u0022header_font_size\u0022: \u00229px\u0022,\n    \u0022margin_top\u0022: \u002240\u0022,\n    \u0022margin_right\u0022: \u002210\u0022,\n    \u0022margin_bottom\u0022: \u002240\u0022,\n    \u0022margin_left\u0022: \u002210\u0022,\n    \u0022print_background\u0022: \u00221\u0022,\n    \u0022displayHeaderFooter\u0022: true,\n    \u0022custom_header\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022,\n    \u0022custom_footer\u0022: \u0022\\u003Cstyle\\u003E#header, #footer { padding: 0 !important; }\\u003C/style\\u003E\\n\\u003Ctable style=\\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\\u0022\\u003E\\n  \\u003Ctr\\u003E\\n    \\u003Ctd style=\\u0022text-align:left; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022date\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:center; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022pageNumber\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n    \\u003Ctd style=\\u0022text-align:right; width:30%!important;\\u0022\\u003E\\u003Cspan class=\\u0022totalPages\\u0022\\u003E\\u003C/span\\u003E\\u003C/td\\u003E\\n  \\u003C/tr\\u003E\\n\\u003C/table\\u003E\u0022\n  }\n}\n\n## Responses\n# 200\n# Description: Returns status and output file\n# Content-Type: application/json\n# default\n# Description: unexpected error\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create-pdf-from-url",
+      "Setup": null
+    },
+    {
+      "Order": 6,
+      "Title": "Delete an Object",
+      "Slug": "delete-object",
+      "Description": "Delete a PDF or an image from CDN and mark the transaction as deleted",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar response = await client.ApiIntegration.DeleteObjectAsync(\n    transactionRef: \u00221618d386-2343-3d234-b9c7-99c82bb9f104\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "delete-object",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 7,
+      "Title": "List Generated Objects",
+      "Slug": "list-objects",
+      "Description": "Retrieves all the generated PDFs and images",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar response = await client.ApiIntegration.ListObjectsAsync(\n    limit: global::System.Text.Json.JsonSerializer.Deserialize\u003Cstring\u003E(\n    @\u0022300\u0022)!,\n    offset: global::System.Text.Json.JsonSerializer.Deserialize\u003Cstring\u003E(\n    @\u00220\u0022)!,\n    templateId: \u002200377b2b1e0ee394\u0022,\n    transactionType: \u0022MERGE\u0022,\n    transactionRef: \u00224adfhg-d0e8-7399-9335-717a881dd91\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "list-objects",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 8,
+      "Title": "Join/Merge multiple PDFs",
+      "Slug": "merge-pdfs",
+      "Description": "This endpoint merges/joins multiple PDF URLs into a single PDF file",
+      "Language": "http",
+      "Code": "### Join/Merge multiple PDFs\n# @name merge-pdfs\nPOST {{host}}/v2/merge-pdfs?postaction_s3_filekey={{postaction_s3_filekey}}\u0026postaction_s3_bucket={{postaction_s3_bucket}}\u0026postaction_enabled={{postaction_enabled}}\u0026meta=inv-iwj343jospig\nX-API-KEY: {{api_key}}\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022urls\u0022: [\n    \u0022https://fileserver.com/a1.pdf\u0022,\n    \u0022https://fileserver.com/b2.pdf\u0022,\n    \u0022data:application/pdf;base64,JVBERi0xLjIg...[truncated]\u0022\n  ],\n  \u0022export_type\u0022: \u0022json\u0022,\n  \u0022expiration\u0022: 5,\n  \u0022cloud_storage\u0022: 1\n}\n\n## Responses\n# 200\n# Description: Returns status and output file\n# Content-Type: application/json\n# default\n# Description: unexpected error\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "merge-pdfs",
+      "Setup": null
+    },
+    {
+      "Order": 9,
+      "Title": "Get PDF template",
+      "Slug": "get-template",
+      "Description": "Retrieves information of the PDF template (**This is an experimental API, contact support to learn more**)",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar response = await client.TemplateManagement.GetTemplateAsync(\n    templateId: \u002200377b2b1e0ee394\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "get-template",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 10,
+      "Title": "List Templates",
+      "Slug": "list-templates",
+      "Description": "Retrieves the information of templates",
+      "Language": "csharp",
+      "Code": "using var client = new APITemplateClient(apiKey);\n\nvar response = await client.TemplateManagement.ListTemplatesAsync(\n    limit: \u0022300\u0022,\n    offset: \u00220\u0022,\n    format: \u0022JPEG\u0022,\n    templateId: \u002200377b2b1e0ee394\u0022,\n    groupName: \u0022custom\u0022,\n    withLayerInfo: global::System.Text.Json.JsonSerializer.Deserialize\u003Cstring\u003E(\n    @\u00220\u0022)!\n);",
+      "Format": "sdk",
+      "OperationId": "list-templates",
+      "Setup": "This example assumes \u0060using APITemplate;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    }
+  ]
+}
