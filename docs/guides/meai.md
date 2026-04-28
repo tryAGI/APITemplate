@@ -8,7 +8,7 @@ The APITemplate SDK provides integration with [Microsoft.Extensions.AI](https://
 ## Installation
 
 ```bash
-dotnet add package APITemplate
+dotnet add package APITemplateIO
 ```
 
 ## Usage
