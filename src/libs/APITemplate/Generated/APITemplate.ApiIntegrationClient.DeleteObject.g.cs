@@ -153,7 +153,7 @@ namespace APITemplate
                 PrepareDeleteObjectRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    transactionRef: transactionRef);
+                    transactionRef: transactionRef!);
 
                 return __httpRequest;
             }

@@ -239,7 +239,7 @@ namespace APITemplate
                 PrepareCreateImageRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    templateId: templateId,
+                    templateId: templateId!,
                     outputImageType: outputImageType,
                     expiration: expiration,
                     cloudStorage: cloudStorage,
