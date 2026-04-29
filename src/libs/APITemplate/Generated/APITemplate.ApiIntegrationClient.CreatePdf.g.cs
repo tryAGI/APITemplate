@@ -311,7 +311,7 @@ namespace APITemplate
                 PrepareCreatePdfRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    templateId: templateId,
+                    templateId: templateId!,
                     exportType: exportType,
                     exportInBase64: exportInBase64,
                     expiration: expiration,
