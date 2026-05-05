@@ -33,6 +33,27 @@ namespace APITemplate
         /// <param name="postactionS3Bucket"></param>
         /// <param name="postactionEnabled"></param>
         /// <param name="meta"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::APITemplate.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessSingleFile>> MergePdfsAsResponseAsync(
+
+            global::APITemplate.MergePdfsRequest request,
+            string? postactionS3Filekey = default,
+            string? postactionS3Bucket = default,
+            string? postactionEnabled = default,
+            string? meta = default,
+            global::APITemplate.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Join/Merge multiple PDFs<br/>
+        /// This endpoint merges/joins multiple PDF URLs into a single PDF file
+        /// </summary>
+        /// <param name="postactionS3Filekey"></param>
+        /// <param name="postactionS3Bucket"></param>
+        /// <param name="postactionEnabled"></param>
+        /// <param name="meta"></param>
         /// <param name="urls">
         /// URL array. We support normal http/https URLs and data URLs<br/>
         /// - Normal URLs: URLs start with http/https, e.g: "https://fileserver.com/a1.pdf")<br/>

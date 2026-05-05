@@ -99,7 +99,7 @@ namespace APITemplate
         /// <summary>
         /// 
         /// </summary>
-        public ApiIntegrationClient ApiIntegration => new ApiIntegrationClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ApiIntegrationClient ApiIntegration => new ApiIntegrationClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -109,7 +109,7 @@ namespace APITemplate
         /// <summary>
         /// 
         /// </summary>
-        public PdfManipulationApiClient PdfManipulationApi => new PdfManipulationApiClient(HttpClient, authorizations: Authorizations, options: Options)
+        public PdfManipulationApiClient PdfManipulationApi => new PdfManipulationApiClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -119,7 +119,7 @@ namespace APITemplate
         /// <summary>
         /// 
         /// </summary>
-        public TemplateManagementClient TemplateManagement => new TemplateManagementClient(HttpClient, authorizations: Authorizations, options: Options)
+        public TemplateManagementClient TemplateManagement => new TemplateManagementClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -197,10 +197,10 @@ namespace APITemplate
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public APITemplateClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::APITemplate.EndPointAuthorization>? authorizations = null,
-            global::APITemplate.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::APITemplate.EndPointAuthorization>? authorizations,
+            global::APITemplate.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 
