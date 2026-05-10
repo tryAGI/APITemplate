@@ -199,5 +199,6 @@ namespace APITemplate
         public ResponseSuccessQueryImageTemplate()
         {
         }
+
     }
 }

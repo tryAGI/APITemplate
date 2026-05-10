@@ -93,5 +93,6 @@ namespace APITemplate
         public ResponseSuccessListTemplatesTemplate()
         {
         }
+
     }
 }

@@ -183,5 +183,6 @@ namespace APITemplate
         public ResponseSuccessAccountInformation()
         {
         }
+
     }
 }

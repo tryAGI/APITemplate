@@ -99,5 +99,6 @@ namespace APITemplate
         public MergePdfsRequest()
         {
         }
+
     }
 }

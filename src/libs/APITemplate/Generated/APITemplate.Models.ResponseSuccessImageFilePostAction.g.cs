@@ -75,5 +75,6 @@ namespace APITemplate
         public ResponseSuccessImageFilePostAction()
         {
         }
+
     }
 }
