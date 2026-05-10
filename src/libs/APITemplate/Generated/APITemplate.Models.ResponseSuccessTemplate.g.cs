@@ -100,5 +100,6 @@ namespace APITemplate
         public ResponseSuccessTemplate()
         {
         }
+
     }
 }
