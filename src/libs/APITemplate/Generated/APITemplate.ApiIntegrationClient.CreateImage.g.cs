@@ -55,7 +55,7 @@ namespace APITemplate
             ref int? expiration,
             ref int? cloudStorage,
             ref int? generationDelay,
-            ref bool? resizeImages,
+            ref int? resizeImages,
             ref int? resizeMaxWidth,
             ref int? resizeMaxHeight,
             ref string? resizeFormat,
@@ -72,7 +72,7 @@ namespace APITemplate
             int? expiration,
             int? cloudStorage,
             int? generationDelay,
-            bool? resizeImages,
+            int? resizeImages,
             int? resizeMaxWidth,
             int? resizeMaxHeight,
             string? resizeFormat,
@@ -119,7 +119,7 @@ namespace APITemplate
             int? expiration = default,
             int? cloudStorage = default,
             int? generationDelay = default,
-            bool? resizeImages = default,
+            int? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
@@ -181,7 +181,7 @@ namespace APITemplate
             int? expiration = default,
             int? cloudStorage = default,
             int? generationDelay = default,
-            bool? resizeImages = default,
+            int? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
@@ -247,7 +247,7 @@ namespace APITemplate
                                 .AddOptionalParameter("expiration", expiration?.ToString())
                                 .AddOptionalParameter("cloud_storage", cloudStorage?.ToString())
                                 .AddOptionalParameter("generation_delay", generationDelay?.ToString())
-                                .AddOptionalParameter("resize_images", resizeImages?.ToString().ToLowerInvariant())
+                                .AddOptionalParameter("resize_images", resizeImages?.ToString())
                                 .AddOptionalParameter("resize_max_width", resizeMaxWidth?.ToString())
                                 .AddOptionalParameter("resize_max_height", resizeMaxHeight?.ToString())
                                 .AddOptionalParameter("resize_format", resizeFormat)
@@ -658,7 +658,7 @@ namespace APITemplate
             int? expiration = default,
             int? cloudStorage = default,
             int? generationDelay = default,
-            bool? resizeImages = default,
+            int? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
