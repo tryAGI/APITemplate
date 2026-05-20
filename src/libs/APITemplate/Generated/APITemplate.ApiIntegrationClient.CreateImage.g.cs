@@ -55,7 +55,7 @@ namespace APITemplate
             ref int? expiration,
             ref int? cloudStorage,
             ref int? generationDelay,
-            ref bool? resizeImages,
+            ref int? resizeImages,
             ref int? resizeMaxWidth,
             ref int? resizeMaxHeight,
             ref string? resizeFormat,
@@ -72,7 +72,7 @@ namespace APITemplate
             int? expiration,
             int? cloudStorage,
             int? generationDelay,
-            bool? resizeImages,
+            int? resizeImages,
             int? resizeMaxWidth,
             int? resizeMaxHeight,
             string? resizeFormat,
@@ -119,7 +119,69 @@ namespace APITemplate
             int? expiration = default,
             int? cloudStorage = default,
             int? generationDelay = default,
-            bool? resizeImages = default,
+            int? resizeImages = default,
+            int? resizeMaxWidth = default,
+            int? resizeMaxHeight = default,
+            string? resizeFormat = default,
+            string? postactionS3Filekey = default,
+            string? postactionS3Bucket = default,
+            string? postactionEnabled = default,
+            string? meta = default,
+            global::APITemplate.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var __response = await CreateImageAsResponseAsync(
+                templateId: templateId,
+
+                request: request,
+                outputImageType: outputImageType,
+                expiration: expiration,
+                cloudStorage: cloudStorage,
+                generationDelay: generationDelay,
+                resizeImages: resizeImages,
+                resizeMaxWidth: resizeMaxWidth,
+                resizeMaxHeight: resizeMaxHeight,
+                resizeFormat: resizeFormat,
+                postactionS3Filekey: postactionS3Filekey,
+                postactionS3Bucket: postactionS3Bucket,
+                postactionEnabled: postactionEnabled,
+                meta: meta,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken
+            ).ConfigureAwait(false);
+
+            return __response.Body;
+        }
+        /// <summary>
+        /// Create an Image<br/>
+        /// This endpoint creates a JPEG file(along with PNG) with JSON data and your template
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="outputImageType"></param>
+        /// <param name="expiration"></param>
+        /// <param name="cloudStorage"></param>
+        /// <param name="generationDelay"></param>
+        /// <param name="resizeImages"></param>
+        /// <param name="resizeMaxWidth"></param>
+        /// <param name="resizeMaxHeight"></param>
+        /// <param name="resizeFormat"></param>
+        /// <param name="postactionS3Filekey"></param>
+        /// <param name="postactionS3Bucket"></param>
+        /// <param name="postactionEnabled"></param>
+        /// <param name="meta"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::APITemplate.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task<global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessImageFile>> CreateImageAsResponseAsync(
+            string templateId,
+
+            object request,
+            string? outputImageType = default,
+            int? expiration = default,
+            int? cloudStorage = default,
+            int? generationDelay = default,
+            int? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
@@ -173,25 +235,26 @@ namespace APITemplate
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
+
                             var __pathBuilder = new global::APITemplate.PathBuilder(
                                 path: "/v2/create-image",
                                 baseUri: ResolveBaseUri(
                                 servers: s_CreateImageServers,
-                                defaultBaseUrl: "https://rest.apitemplate.io/")); 
+                                defaultBaseUrl: "https://rest.apitemplate.io/"));
                             __pathBuilder
                                 .AddRequiredParameter("template_id", templateId)
                                 .AddOptionalParameter("output_image_type", outputImageType)
                                 .AddOptionalParameter("expiration", expiration?.ToString())
                                 .AddOptionalParameter("cloud_storage", cloudStorage?.ToString())
                                 .AddOptionalParameter("generation_delay", generationDelay?.ToString())
-                                .AddOptionalParameter("resize_images", resizeImages?.ToString().ToLowerInvariant())
+                                .AddOptionalParameter("resize_images", resizeImages?.ToString())
                                 .AddOptionalParameter("resize_max_width", resizeMaxWidth?.ToString())
                                 .AddOptionalParameter("resize_max_height", resizeMaxHeight?.ToString())
                                 .AddOptionalParameter("resize_format", resizeFormat)
                                 .AddOptionalParameter("postaction_s3_filekey", postactionS3Filekey)
                                 .AddOptionalParameter("postaction_s3_bucket", postactionS3Bucket)
                                 .AddOptionalParameter("postaction_enabled", postactionEnabled)
-                                .AddOptionalParameter("meta", meta) 
+                                .AddOptionalParameter("meta", meta)
                                 ;
                             var __path = __pathBuilder.ToString();
                 __path = global::APITemplate.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -282,6 +345,8 @@ namespace APITemplate
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                     try
                     {
@@ -292,6 +357,11 @@ namespace APITemplate
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
                     {
+                        var __retryDelay = global::APITemplate.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: null,
+                            attempt: __attempt);
                         var __willRetry = __attempt < __maxAttempts && !__effectiveCancellationToken.IsCancellationRequested;
                         await global::APITemplate.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
@@ -309,6 +379,8 @@ namespace APITemplate
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: __willRetry,
+                                retryDelay: __willRetry ? __retryDelay : (global::System.TimeSpan?)null,
+                                retryReason: "exception",
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         if (!__willRetry)
                         {
@@ -318,8 +390,7 @@ namespace APITemplate
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::APITemplate.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -328,6 +399,11 @@ namespace APITemplate
                         __attempt < __maxAttempts &&
                         global::APITemplate.AutoSDKRequestOptionsSupport.ShouldRetryStatusCode(__response.StatusCode))
                     {
+                        var __retryDelay = global::APITemplate.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: __response,
+                            attempt: __attempt);
                         await global::APITemplate.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::APITemplate.AutoSDKRequestOptionsSupport.CreateHookContext(
@@ -344,14 +420,15 @@ namespace APITemplate
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: true,
+                                retryDelay: __retryDelay,
+                                retryReason: "status:" + ((int)__response.StatusCode).ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         __response.Dispose();
                         __response = null;
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::APITemplate.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -391,6 +468,8 @@ namespace APITemplate
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                 else
@@ -411,6 +490,8 @@ namespace APITemplate
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                             // unexpected error
@@ -473,9 +554,13 @@ namespace APITemplate
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    return
-                                        global::APITemplate.ResponseSuccessImageFile.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::APITemplate.ResponseSuccessImageFile.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
+                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessImageFile>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::APITemplate.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -503,9 +588,13 @@ namespace APITemplate
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    return
-                                        await global::APITemplate.ResponseSuccessImageFile.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::APITemplate.ResponseSuccessImageFile.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
+                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessImageFile>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::APITemplate.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -569,7 +658,7 @@ namespace APITemplate
             int? expiration = default,
             int? cloudStorage = default,
             int? generationDelay = default,
-            bool? resizeImages = default,
+            int? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,

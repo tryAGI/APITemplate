@@ -87,5 +87,6 @@ namespace APITemplate
         public UpdateTemplateRequest()
         {
         }
+
     }
 }

@@ -975,14 +975,14 @@ paths:
             type: string
           required: false
           description: Retrieve only the number of records specified. Default to 300
-          example: 300
+          example: '300'
         - in: query
           name: offset
           schema:
             type: string
           required: false
           description: Offset is used to skip the number of records from the results. Default to 0
-          example: 0
+          example: '0'
         - in: query
           name: template_id
           schema:
@@ -1325,7 +1325,7 @@ paths:
             type: string
           required: false
           description: Return along with layer information for image templates, 0=false , 1=true. Default to '0'
-          example: 0
+          example: '0'
 
       responses:
         '200':
@@ -1937,29 +1937,29 @@ components:
           type: array
           items:
             type: object
-          properties:
+            properties:
               transaction_ref:
-                 type: string
+                type: string
               description:
-                 type: string
+                type: string
               source:
-                 type: string
+                type: string
               meta:
-                 type: string
+                type: string
               transaction_type:
-                 type: string
+                type: string
               primary_url:
-                 type: string
+                type: string
               secondary_url:
-                 type: string
+                type: string
               deleted_at:
-                 type: string
+                type: string
               deletion_status:
-                 type: integer
+                type: integer
               ip_address:
-                 type: string
+                type: string
               created_at:
-                 type: string
+                type: string
           example:
             - transaction_ref: e9c46f03-1840-44dc-bae7-f280e0be98a9
               description: null
@@ -2314,7 +2314,7 @@ components:
       in: query
       name: resize_images
       schema:
-        type: boolean
+        type: integer
       required: false
       description: |
         - Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
@@ -2322,7 +2322,7 @@ components:
         - Images to be resized need to satisfy the following conditions:
           - The images with the content-type `image/jpeg`, `image/jpg` or `image/png`
           - The image URLs with the extension `.jpg`, `.jpeg` or `.png`
-      example: '0'
+      example: 0
 
     paramResizeMaxWidth:
       in: query
@@ -2332,7 +2332,7 @@ components:
       required: false
       description: |
         - If `resize_images` is set to `1`, specify the maximum width of the image in pixels. Default to '1000'
-      example: '1000'
+      example: 1000
 
     paramResizeMaxHeight:
       in: query
@@ -2342,7 +2342,7 @@ components:
       required: false
       description: |
         - If `resize_images` is set to `1`, specify the maximum height of the image in pixels. Default to '1000'
-      example: '1000'
+      example: 1000
 
     paramResizeFormat:
       in: query
@@ -2373,7 +2373,7 @@ components:
       required: false
       description: |
         - Upload the generated PDFs/images to our storage CDN, default to `1`. If you have configured `Post Action` to upload the PDFs/Images to your own S3, please set it to `0`.
-      example: '1'
+      example: 1
 
     paramExtractLink:
       in: query
@@ -2383,13 +2383,13 @@ components:
       required: false
       description: |
         - Extract links from the HTML content, default to `0`.
-      example: '0'
+      example: 0
 
     paramGenerationDelay:
       in: query
       name: generation_delay
       schema:
-        type: int
+        type: integer
       required: false
       description: |
         Delay in milliseconds before PDF/image generation

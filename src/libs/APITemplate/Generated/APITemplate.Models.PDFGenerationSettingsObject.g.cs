@@ -174,5 +174,6 @@ namespace APITemplate
         public PDFGenerationSettingsObject()
         {
         }
+
     }
 }

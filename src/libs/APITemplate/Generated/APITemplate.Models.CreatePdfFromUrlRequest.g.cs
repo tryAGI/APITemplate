@@ -58,5 +58,6 @@ namespace APITemplate
         public CreatePdfFromUrlRequest()
         {
         }
+
     }
 }

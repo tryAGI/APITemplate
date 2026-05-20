@@ -60,5 +60,6 @@ namespace APITemplate
         public Error()
         {
         }
+
     }
 }

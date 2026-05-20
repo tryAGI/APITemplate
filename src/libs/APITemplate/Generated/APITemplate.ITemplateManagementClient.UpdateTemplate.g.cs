@@ -21,6 +21,19 @@ namespace APITemplate
         /// Update PDF Template<br/>
         /// This endpoint updates PDF template (**This is an experimental API, contact support to learn more**)
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::APITemplate.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccess>> UpdateTemplateAsResponseAsync(
+
+            global::APITemplate.UpdateTemplateRequest request,
+            global::APITemplate.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Update PDF Template<br/>
+        /// This endpoint updates PDF template (**This is an experimental API, contact support to learn more**)
+        /// </summary>
         /// <param name="templateId">
         /// Your template id, it can be obtained in the web console(Manage Templates)<br/>
         /// Example: 00377b2b1e0ee394
