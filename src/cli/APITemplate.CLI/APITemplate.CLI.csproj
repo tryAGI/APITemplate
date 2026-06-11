@@ -8,15 +8,11 @@
     <PackAsTool>true</PackAsTool>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <PackageId>APITemplate.CLI</PackageId>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <ToolCommandName>api-template</ToolCommandName>
     <UserSecretsId>APITemplate.CLI</UserSecretsId>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MinVer" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
