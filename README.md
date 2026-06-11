@@ -40,6 +40,13 @@ using APITemplate;
 using var client = new APITemplateClient(apiKey);
 ```
 
+### CLI
+
+```bash
+dotnet tool install --global APITemplate.CLI --prerelease
+api-template api --help
+```
+
 <!-- EXAMPLES:START -->
 <!-- EXAMPLES:END -->
 

@@ -17,3 +17,20 @@ autosdk generate openapi.yaml \
   --security-scheme ApiKey:Header:X-API-KEY \
   --output Generated \
   --exclude-deprecated-operations
+
+rm -rf ../../cli/APITemplate.CLI
+
+autosdk cli-project openapi.yaml \
+  --output ../../cli/APITemplate.CLI \
+  --sdk-project ../../libs/APITemplate/APITemplate.csproj \
+  --targetFramework net10.0 \
+  --namespace APITemplate \
+  --clientClassName APITemplateClient \
+  --package-id APITemplate.CLI \
+  --tool-command-name api-template \
+  --user-secrets-id APITemplate.CLI \
+  --api-key-env-var APITEMPLATE_API_KEY \
+  --base-url-env-var APITEMPLATE_BASE_URL \
+  --cli-credential-file \
+  --exclude-deprecated-operations \
+  --security-scheme ApiKey:Header:X-API-KEY
