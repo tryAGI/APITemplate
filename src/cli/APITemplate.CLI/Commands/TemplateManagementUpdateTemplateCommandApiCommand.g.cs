@@ -106,9 +106,9 @@ This endpoint updates PDF template (**This is an experimental API, contact suppo
                             global::APITemplate.SourceGenerationContext.Default,
                             cancellationToken).ConfigureAwait(false);
                         var templateId = parseResult.GetRequiredValue(TemplateId);
-                        var body = CliRuntime.WasSpecified(parseResult, Body) ? parseResult.GetValue(Body) : __requestBase is not null ? __requestBase.Body : default;
-                        var css = CliRuntime.WasSpecified(parseResult, Css) ? parseResult.GetValue(Css) : __requestBase is not null ? __requestBase.Css : default;
-                        var settings = CliRuntime.WasSpecified(parseResult, Settings) ? parseResult.GetValue(Settings) : __requestBase is not null ? __requestBase.Settings : default;
+                        var body = CliRuntime.WasSpecified(parseResult, Body) ? parseResult.GetValue(Body) : (__requestBase is { } __BodyBaseValue ? __BodyBaseValue.Body : default);
+                        var css = CliRuntime.WasSpecified(parseResult, Css) ? parseResult.GetValue(Css) : (__requestBase is { } __CssBaseValue ? __CssBaseValue.Css : default);
+                        var settings = CliRuntime.WasSpecified(parseResult, Settings) ? parseResult.GetValue(Settings) : (__requestBase is { } __SettingsBaseValue ? __SettingsBaseValue.Settings : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
