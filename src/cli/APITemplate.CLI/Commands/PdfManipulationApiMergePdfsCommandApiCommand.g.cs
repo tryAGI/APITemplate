@@ -154,9 +154,9 @@ This endpoint merges/joins multiple PDF URLs into a single PDF file");
                         var postactionEnabled = parseResult.GetValue(PostactionEnabled);
                         var meta = parseResult.GetValue(Meta);
                         var urls = parseResult.GetRequiredValue(Urls);
-                        var exportType = CliRuntime.WasSpecified(parseResult, ExportType) ? parseResult.GetValue(ExportType) : __requestBase is not null ? __requestBase.ExportType : default;
-                        var expiration = CliRuntime.WasSpecified(parseResult, Expiration) ? parseResult.GetValue(Expiration) : __requestBase is not null ? __requestBase.Expiration : default;
-                        var cloudStorage = CliRuntime.WasSpecified(parseResult, CloudStorage) ? parseResult.GetValue(CloudStorage) : __requestBase is not null ? __requestBase.CloudStorage : default;
+                        var exportType = CliRuntime.WasSpecified(parseResult, ExportType) ? parseResult.GetValue(ExportType) : (__requestBase is { } __ExportTypeBaseValue ? __ExportTypeBaseValue.ExportType : default);
+                        var expiration = CliRuntime.WasSpecified(parseResult, Expiration) ? parseResult.GetValue(Expiration) : (__requestBase is { } __ExpirationBaseValue ? __ExpirationBaseValue.Expiration : default);
+                        var cloudStorage = CliRuntime.WasSpecified(parseResult, CloudStorage) ? parseResult.GetValue(CloudStorage) : (__requestBase is { } __CloudStorageBaseValue ? __CloudStorageBaseValue.CloudStorage : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
