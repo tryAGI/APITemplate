@@ -90,10 +90,17 @@ namespace APITemplate
 
 
         internal global::APITemplate.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::APITemplate.AutoSDKServerConfiguration();
+
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::APITemplate.SourceGenerationContext.Default);
+
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; } = global::APITemplate.SourceGenerationContext.Default;
+        public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
+        {
+            get => JsonSerializerContextProvider.Value;
+            set => JsonSerializerContextProvider = new(() => value);
+        }
 
 
         /// <summary>
@@ -102,7 +109,7 @@ namespace APITemplate
         public ApiIntegrationClient ApiIntegration => new ApiIntegrationClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKServerConfiguration = AutoSDKServerConfiguration,
         };
 
@@ -112,7 +119,7 @@ namespace APITemplate
         public PdfManipulationApiClient PdfManipulationApi => new PdfManipulationApiClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKServerConfiguration = AutoSDKServerConfiguration,
         };
 
@@ -122,7 +129,7 @@ namespace APITemplate
         public TemplateManagementClient TemplateManagement => new TemplateManagementClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKServerConfiguration = AutoSDKServerConfiguration,
         };
 
