@@ -114,23 +114,23 @@ namespace APITemplate
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ApiIntegrationClient ApiIntegration { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PdfManipulationApiClient PdfManipulationApi { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TemplateManagementClient TemplateManagement { get; }
 

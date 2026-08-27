@@ -10,11 +10,11 @@ namespace APITemplate
     public enum ResponseSuccessStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }

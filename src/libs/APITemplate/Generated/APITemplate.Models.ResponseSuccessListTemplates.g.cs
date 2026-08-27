@@ -4,7 +4,7 @@
 namespace APITemplate
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ResponseSuccessListTemplates
     {
