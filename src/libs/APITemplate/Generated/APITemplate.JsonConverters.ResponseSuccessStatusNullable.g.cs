@@ -20,7 +20,7 @@ namespace APITemplate.JsonConverters
                     {
                         return global::APITemplate.ResponseSuccessStatusExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

@@ -64,7 +64,7 @@ namespace APITemplate
     public sealed partial class APITemplateClient : global::APITemplate.IAPITemplateClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://rest.apitemplate.io/";
 
@@ -94,7 +94,7 @@ namespace APITemplate
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::APITemplate.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
@@ -104,7 +104,7 @@ namespace APITemplate
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ApiIntegrationClient ApiIntegration => new ApiIntegrationClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -114,7 +114,7 @@ namespace APITemplate
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PdfManipulationApiClient PdfManipulationApi => new PdfManipulationApiClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -124,7 +124,7 @@ namespace APITemplate
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TemplateManagementClient TemplateManagement => new TemplateManagementClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {

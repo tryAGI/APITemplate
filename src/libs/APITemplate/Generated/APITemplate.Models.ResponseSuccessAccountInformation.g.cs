@@ -4,7 +4,7 @@
 namespace APITemplate
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ResponseSuccessAccountInformation
     {
@@ -93,7 +93,7 @@ namespace APITemplate
         public int? TemplateQuota { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("message")]
         public string? Message { get; set; }

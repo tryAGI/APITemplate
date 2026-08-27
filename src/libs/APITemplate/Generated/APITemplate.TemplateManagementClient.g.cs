@@ -10,7 +10,7 @@ namespace APITemplate
     public sealed partial class TemplateManagementClient : global::APITemplate.ITemplateManagementClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://rest.apitemplate.io/";
 
@@ -40,7 +40,7 @@ namespace APITemplate
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::APITemplate.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
