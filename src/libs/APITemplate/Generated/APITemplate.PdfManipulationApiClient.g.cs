@@ -37,7 +37,7 @@ namespace APITemplate
 
         internal global::APITemplate.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::APITemplate.AutoSDKServerConfiguration();
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::APITemplate.SourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::APITemplate.PdfManipulationApiSourceGenerationContext.Default);
 
         /// <summary>
         ///
