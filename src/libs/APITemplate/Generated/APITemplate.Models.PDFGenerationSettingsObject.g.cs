@@ -5,7 +5,7 @@ namespace APITemplate
 {
     /// <summary>
     /// The settings object contains various properties to configure the PDF generation.<br/>
-    /// Example: {"paper_size":"A4","orientation":"1","header_font_size":"9px","margin_top":"40","margin_right":"10","margin_bottom":"40","margin_left":"10","print_background":"1","displayHeaderFooter":true,"custom_header":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E","custom_footer":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E"}
+    /// Example: {"paper_size":"A4","orientation":"1","header_font_size":"9px","margin_top":"40","margin_right":"10","margin_bottom":"40","margin_left":"10","print_background":"1","displayHeaderFooter":true,"rendering_engine_version":"153","preferCSSPageSize":false,"custom_header":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E","custom_footer":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E"}
     /// </summary>
     public sealed partial class PDFGenerationSettingsObject
     {
@@ -88,6 +88,25 @@ namespace APITemplate
         public string? CustomFooter { get; set; }
 
         /// <summary>
+        /// Specifies the rendering engine version used to render the PDF. The available options are "97" (legacy) and "153".<br/>
+        /// Defaults to "153" when omitted. Set it to "97" if you need the output to keep matching the legacy rendering engine.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("rendering_engine_version")]
+        public string? RenderingEngineVersion { get; set; }
+
+        /// <summary>
+        /// Lets the CSS `@page` at-rule in your template control page size and orientation, so<br/>
+        /// different pages of one PDF can have different sizes; `@page` margins are honoured in any<br/>
+        /// case. Requires `rendering_engine_version` "153"; ignored on "97". Defaults to false.<br/>
+        /// Precedence when true: a named page rule (`@page cover { … }`, applied with `page: cover`)<br/>
+        /// wins over the unnamed `@page { … }` rule, which wins over `paper_size`, `orientation`<br/>
+        /// and `margin_*` from this object. The settings below only apply to what the CSS leaves<br/>
+        /// unspecified. See https://apitemplate.io/docs/pdf-generation/custom-page-size-and-margin
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("preferCSSPageSize")]
+        public bool? PreferCSSPageSize { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -135,6 +154,19 @@ namespace APITemplate
         /// <param name="customFooter">
         /// Specify custom HTML markup for the footer of the PDF. These properties should contain valid HTML markup, including any necessary CSS styles.
         /// </param>
+        /// <param name="renderingEngineVersion">
+        /// Specifies the rendering engine version used to render the PDF. The available options are "97" (legacy) and "153".<br/>
+        /// Defaults to "153" when omitted. Set it to "97" if you need the output to keep matching the legacy rendering engine.
+        /// </param>
+        /// <param name="preferCSSPageSize">
+        /// Lets the CSS `@page` at-rule in your template control page size and orientation, so<br/>
+        /// different pages of one PDF can have different sizes; `@page` margins are honoured in any<br/>
+        /// case. Requires `rendering_engine_version` "153"; ignored on "97". Defaults to false.<br/>
+        /// Precedence when true: a named page rule (`@page cover { … }`, applied with `page: cover`)<br/>
+        /// wins over the unnamed `@page { … }` rule, which wins over `paper_size`, `orientation`<br/>
+        /// and `margin_*` from this object. The settings below only apply to what the CSS leaves<br/>
+        /// unspecified. See https://apitemplate.io/docs/pdf-generation/custom-page-size-and-margin
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -151,7 +183,9 @@ namespace APITemplate
             string? printBackground,
             bool? displayHeaderFooter,
             string? customHeader,
-            string? customFooter)
+            string? customFooter,
+            string? renderingEngineVersion,
+            bool? preferCSSPageSize)
         {
             this.PaperSize = paperSize;
             this.CustomWidth = customWidth;
@@ -166,6 +200,8 @@ namespace APITemplate
             this.DisplayHeaderFooter = displayHeaderFooter;
             this.CustomHeader = customHeader;
             this.CustomFooter = customFooter;
+            this.RenderingEngineVersion = renderingEngineVersion;
+            this.PreferCSSPageSize = preferCSSPageSize;
         }
 
         /// <summary>

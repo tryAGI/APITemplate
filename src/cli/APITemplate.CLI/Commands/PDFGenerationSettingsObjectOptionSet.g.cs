@@ -17,7 +17,9 @@ internal sealed record PDFGenerationSettingsObjectOptionSet(
                      Option<string?> PrintBackground,
                      Option<bool?> DisplayHeaderFooter,
                      Option<string?> CustomHeader,
-                     Option<string?> CustomFooter)
+                     Option<string?> CustomFooter,
+                     Option<string?> RenderingEngineVersion,
+                     Option<bool?> PreferCSSPageSize)
 {
     public static PDFGenerationSettingsObjectOptionSet Create(string? prefix = null)
     {
@@ -86,7 +88,22 @@ internal sealed record PDFGenerationSettingsObjectOptionSet(
                 {
                     Description = @"Specify custom HTML markup for the footer of the PDF. These properties should contain valid HTML markup, including any necessary CSS styles.
 ",
-                }
+                },
+                RenderingEngineVersion: new Option<string?>($"--{normalizedPrefix}rendering-engine-version")
+                {
+                    Description = @"Specifies the rendering engine version used to render the PDF. The available options are ""97"" (legacy) and ""153"".
+Defaults to ""153"" when omitted. Set it to ""97"" if you need the output to keep matching the legacy rendering engine.
+",
+                },
+                PreferCSSPageSize: CliRuntime.CreateNullableBoolOption(name: $"--{normalizedPrefix}prefer-csspage-size", description: @"Lets the CSS `@page` at-rule in your template control page size and orientation, so
+different pages of one PDF can have different sizes; `@page` margins are honoured in any
+case. Requires `rendering_engine_version` ""153""; ignored on ""97"". Defaults to false.
+
+Precedence when true: a named page rule (`@page cover { … }`, applied with `page: cover`)
+wins over the unnamed `@page { … }` rule, which wins over `paper_size`, `orientation`
+and `margin_*` from this object. The settings below only apply to what the CSS leaves
+unspecified. See https://apitemplate.io/docs/pdf-generation/custom-page-size-and-margin
+")
         );
     }
 }

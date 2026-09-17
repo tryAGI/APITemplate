@@ -58,7 +58,7 @@ namespace APITemplate
             ref int? cloudStorage,
             ref int? generationDelay,
             ref string? imageResampleRes,
-            ref int? resizeImages,
+            ref bool? resizeImages,
             ref int? resizeMaxWidth,
             ref int? resizeMaxHeight,
             ref string? resizeFormat,
@@ -81,7 +81,7 @@ namespace APITemplate
             int? cloudStorage,
             int? generationDelay,
             string? imageResampleRes,
-            int? resizeImages,
+            bool? resizeImages,
             int? resizeMaxWidth,
             int? resizeMaxHeight,
             string? resizeFormat,
@@ -140,7 +140,7 @@ namespace APITemplate
             int? cloudStorage = default,
             int? generationDelay = default,
             string? imageResampleRes = default,
-            int? resizeImages = default,
+            bool? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
@@ -220,7 +220,7 @@ namespace APITemplate
             int? cloudStorage = default,
             int? generationDelay = default,
             string? imageResampleRes = default,
-            int? resizeImages = default,
+            bool? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
@@ -298,7 +298,7 @@ namespace APITemplate
                                 .AddOptionalParameter("cloud_storage", cloudStorage?.ToString())
                                 .AddOptionalParameter("generation_delay", generationDelay?.ToString())
                                 .AddOptionalParameter("image_resample_res", imageResampleRes)
-                                .AddOptionalParameter("resize_images", resizeImages?.ToString())
+                                .AddOptionalParameter("resize_images", resizeImages?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("resize_max_width", resizeMaxWidth?.ToString())
                                 .AddOptionalParameter("resize_max_height", resizeMaxHeight?.ToString())
                                 .AddOptionalParameter("resize_format", resizeFormat)
@@ -716,7 +716,7 @@ namespace APITemplate
         /// </param>
         /// <param name="settings">
         /// The settings object contains various properties to configure the PDF generation.<br/>
-        /// Example: {"paper_size":"A4","orientation":"1","header_font_size":"9px","margin_top":"40","margin_right":"10","margin_bottom":"40","margin_left":"10","print_background":"1","displayHeaderFooter":true,"custom_header":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E","custom_footer":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E"}
+        /// Example: {"paper_size":"A4","orientation":"1","header_font_size":"9px","margin_top":"40","margin_right":"10","margin_bottom":"40","margin_left":"10","print_background":"1","displayHeaderFooter":true,"rendering_engine_version":"153","preferCSSPageSize":false,"custom_header":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E","custom_footer":"\u003Cstyle\u003E#header, #footer { padding: 0 !important; }\u003C/style\u003E\n\u003Ctable style=\u0022width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\u0022\u003E\n  \u003Ctr\u003E\n    \u003Ctd style=\u0022text-align:left; width:30%!important;\u0022\u003E\u003Cspan class=\u0022date\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:center; width:30%!important;\u0022\u003E\u003Cspan class=\u0022pageNumber\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n    \u003Ctd style=\u0022text-align:right; width:30%!important;\u0022\u003E\u003Cspan class=\u0022totalPages\u0022\u003E\u003C/span\u003E\u003C/td\u003E\n  \u003C/tr\u003E\n\u003C/table\u003E"}
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -730,7 +730,7 @@ namespace APITemplate
             int? cloudStorage = default,
             int? generationDelay = default,
             string? imageResampleRes = default,
-            int? resizeImages = default,
+            bool? resizeImages = default,
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,

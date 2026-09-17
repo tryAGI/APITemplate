@@ -21,9 +21,9 @@ namespace APITemplate
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.Error))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(string))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<object>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(object))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessSingleFile))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<object>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.MergePdfsRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int?))]
     internal sealed partial class PdfManipulationApiSourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext

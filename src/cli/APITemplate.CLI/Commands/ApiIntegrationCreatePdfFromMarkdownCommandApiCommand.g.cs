@@ -70,16 +70,14 @@ internal static partial class ApiIntegrationCreatePdfFromMarkdownCommandApiComma
 ",
     };
 
-    private static Option<int?> ResizeImages { get; } = new(
-        name: @"--resize-images")
-    {
-        Description = @"- Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
+    private static Option<bool?> ResizeImages { get; } = CliRuntime.CreateNullableBoolOption(
+        name: @"--resize-images",
+        description: @"- Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
 - If `resize_images` is set to `1`, specify the `resize_max_width`, `resize_max_height` in pixels.
 - Images to be resized need to satisfy the following conditions:
   - The images with the content-type `image/jpeg`, `image/jpg` or `image/png`
   - The image URLs with the extension `.jpg`, `.jpeg` or `.png`
-",
-    };
+");
 
     private static Option<int?> ResizeMaxWidth { get; } = new(
         name: @"--resize-max-width")
@@ -274,6 +272,8 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
                         command.Options.Add(SettingsOptions.DisplayHeaderFooter);
                         command.Options.Add(SettingsOptions.CustomHeader);
                         command.Options.Add(SettingsOptions.CustomFooter);
+                        command.Options.Add(SettingsOptions.RenderingEngineVersion);
+                        command.Options.Add(SettingsOptions.PreferCSSPageSize);
           command.Options.Add(Input);
           command.Options.Add(RequestJson);
           command.Options.Add(RequestFile);
@@ -335,7 +335,9 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
                         var settingsDisplayHeaderFooter = CliRuntime.WasSpecified(parseResult, SettingsOptions.DisplayHeaderFooter) ? parseResult.GetValue(SettingsOptions.DisplayHeaderFooter) : (__SettingsBase is { } __SettingsdisplayHeaderFooterBaseValue ? __SettingsdisplayHeaderFooterBaseValue.DisplayHeaderFooter : default);
                         var settingsCustomHeader = CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomHeader) ? parseResult.GetValue(SettingsOptions.CustomHeader) : (__SettingsBase is { } __SettingscustomHeaderBaseValue ? __SettingscustomHeaderBaseValue.CustomHeader : default);
                         var settingsCustomFooter = CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomFooter) ? parseResult.GetValue(SettingsOptions.CustomFooter) : (__SettingsBase is { } __SettingscustomFooterBaseValue ? __SettingscustomFooterBaseValue.CustomFooter : default);
-                        var __SettingsSpecified = CliRuntime.WasSpecified(parseResult, SettingsOptions.PaperSize) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomWidth) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomHeight) || CliRuntime.WasSpecified(parseResult, SettingsOptions.Orientation) || CliRuntime.WasSpecified(parseResult, SettingsOptions.HeaderFontSize) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginTop) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginRight) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginBottom) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginLeft) || CliRuntime.WasSpecified(parseResult, SettingsOptions.PrintBackground) || CliRuntime.WasSpecified(parseResult, SettingsOptions.DisplayHeaderFooter) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomHeader) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomFooter);
+                        var settingsRenderingEngineVersion = CliRuntime.WasSpecified(parseResult, SettingsOptions.RenderingEngineVersion) ? parseResult.GetValue(SettingsOptions.RenderingEngineVersion) : (__SettingsBase is { } __SettingsrenderingEngineVersionBaseValue ? __SettingsrenderingEngineVersionBaseValue.RenderingEngineVersion : default);
+                        var settingsPreferCSSPageSize = CliRuntime.WasSpecified(parseResult, SettingsOptions.PreferCSSPageSize) ? parseResult.GetValue(SettingsOptions.PreferCSSPageSize) : (__SettingsBase is { } __SettingspreferCSSPageSizeBaseValue ? __SettingspreferCSSPageSizeBaseValue.PreferCSSPageSize : default);
+                        var __SettingsSpecified = CliRuntime.WasSpecified(parseResult, SettingsOptions.PaperSize) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomWidth) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomHeight) || CliRuntime.WasSpecified(parseResult, SettingsOptions.Orientation) || CliRuntime.WasSpecified(parseResult, SettingsOptions.HeaderFontSize) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginTop) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginRight) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginBottom) || CliRuntime.WasSpecified(parseResult, SettingsOptions.MarginLeft) || CliRuntime.WasSpecified(parseResult, SettingsOptions.PrintBackground) || CliRuntime.WasSpecified(parseResult, SettingsOptions.DisplayHeaderFooter) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomHeader) || CliRuntime.WasSpecified(parseResult, SettingsOptions.CustomFooter) || CliRuntime.WasSpecified(parseResult, SettingsOptions.RenderingEngineVersion) || CliRuntime.WasSpecified(parseResult, SettingsOptions.PreferCSSPageSize);
                         var settings =
                             __SettingsSpecified || __SettingsBase is not null
                                 ? new global::APITemplate.PDFGenerationSettingsObject
@@ -353,6 +355,8 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
                                 DisplayHeaderFooter = settingsDisplayHeaderFooter,
                                 CustomHeader = settingsCustomHeader,
                                 CustomFooter = settingsCustomFooter,
+                                RenderingEngineVersion = settingsRenderingEngineVersion,
+                                PreferCSSPageSize = settingsPreferCSSPageSize,
 
                                 }
                                 : __SettingsBase;
