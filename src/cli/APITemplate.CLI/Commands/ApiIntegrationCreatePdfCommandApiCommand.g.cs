@@ -109,16 +109,14 @@ internal static partial class ApiIntegrationCreatePdfCommandApiCommand
 ",
     };
 
-    private static Option<int?> ResizeImages { get; } = new(
-        name: @"--resize-images")
-    {
-        Description = @"- Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
+    private static Option<bool?> ResizeImages { get; } = CliRuntime.CreateNullableBoolOption(
+        name: @"--resize-images",
+        description: @"- Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
 - If `resize_images` is set to `1`, specify the `resize_max_width`, `resize_max_height` in pixels.
 - Images to be resized need to satisfy the following conditions:
   - The images with the content-type `image/jpeg`, `image/jpg` or `image/png`
   - The image URLs with the extension `.jpg`, `.jpeg` or `.png`
-",
-    };
+");
 
     private static Option<int?> ResizeMaxWidth { get; } = new(
         name: @"--resize-max-width")

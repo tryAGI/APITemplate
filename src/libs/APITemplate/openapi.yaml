@@ -975,14 +975,14 @@ paths:
             type: string
           required: false
           description: Retrieve only the number of records specified. Default to 300
-          example: '300'
+          example: 300
         - in: query
           name: offset
           schema:
             type: string
           required: false
           description: Offset is used to skip the number of records from the results. Default to 0
-          example: '0'
+          example: 0
         - in: query
           name: template_id
           schema:
@@ -1325,7 +1325,7 @@ paths:
             type: string
           required: false
           description: Return along with layer information for image templates, 0=false , 1=true. Default to '0'
-          example: '0'
+          example: 0
 
       responses:
         '200':
@@ -1937,29 +1937,29 @@ components:
           type: array
           items:
             type: object
-            properties:
+          properties:
               transaction_ref:
-                type: string
+                 type: string
               description:
-                type: string
+                 type: string
               source:
-                type: string
+                 type: string
               meta:
-                type: string
+                 type: string
               transaction_type:
-                type: string
+                 type: string
               primary_url:
-                type: string
+                 type: string
               secondary_url:
-                type: string
+                 type: string
               deleted_at:
-                type: string
+                 type: string
               deletion_status:
-                type: integer
+                 type: integer
               ip_address:
-                type: string
+                 type: string
               created_at:
-                type: string
+                 type: string
           example:
             - transaction_ref: e9c46f03-1840-44dc-bae7-f280e0be98a9
               description: null
@@ -2192,6 +2192,22 @@ components:
           type: string
           description: |
             Specify custom HTML markup for the footer of the PDF. These properties should contain valid HTML markup, including any necessary CSS styles.
+        rendering_engine_version:
+          type: string
+          description: |
+            Specifies the rendering engine version used to render the PDF. The available options are "97" (legacy) and "153".
+            Defaults to "153" when omitted. Set it to "97" if you need the output to keep matching the legacy rendering engine.
+        preferCSSPageSize:
+          type: boolean
+          description: |
+            Lets the CSS `@page` at-rule in your template control page size and orientation, so
+            different pages of one PDF can have different sizes; `@page` margins are honoured in any
+            case. Requires `rendering_engine_version` "153"; ignored on "97". Defaults to false.
+
+            Precedence when true: a named page rule (`@page cover { … }`, applied with `page: cover`)
+            wins over the unnamed `@page { … }` rule, which wins over `paper_size`, `orientation`
+            and `margin_*` from this object. The settings below only apply to what the CSS leaves
+            unspecified. See https://apitemplate.io/docs/pdf-generation/custom-page-size-and-margin
 
       example:
         paper_size: "A4"
@@ -2203,6 +2219,8 @@ components:
         margin_left: "10"
         print_background: "1"
         displayHeaderFooter: true
+        rendering_engine_version: "153"
+        preferCSSPageSize: false
         custom_header: "<style>#header, #footer { padding: 0 !important; }</style>\n<table style=\"width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\">\n  <tr>\n    <td style=\"text-align:left; width:30%!important;\"><span class=\"date\"></span></td>\n    <td style=\"text-align:center; width:30%!important;\"><span class=\"pageNumber\"></span></td>\n    <td style=\"text-align:right; width:30%!important;\"><span class=\"totalPages\"></span></td>\n  </tr>\n</table>"
         custom_footer: "<style>#header, #footer { padding: 0 !important; }</style>\n<table style=\"width: 100%; padding: 0px 5px;margin: 0px!important;font-size: 15px\">\n  <tr>\n    <td style=\"text-align:left; width:30%!important;\"><span class=\"date\"></span></td>\n    <td style=\"text-align:center; width:30%!important;\"><span class=\"pageNumber\"></span></td>\n    <td style=\"text-align:right; width:30%!important;\"><span class=\"totalPages\"></span></td>\n  </tr>\n</table>"
 
@@ -2314,7 +2332,7 @@ components:
       in: query
       name: resize_images
       schema:
-        type: integer
+        type: boolean
       required: false
       description: |
         - Preprocess images or re-size images in the PDF, either `1`=true or `0`=false. Default to '0'
@@ -2322,7 +2340,7 @@ components:
         - Images to be resized need to satisfy the following conditions:
           - The images with the content-type `image/jpeg`, `image/jpg` or `image/png`
           - The image URLs with the extension `.jpg`, `.jpeg` or `.png`
-      example: 0
+      example: '0'
 
     paramResizeMaxWidth:
       in: query
@@ -2332,7 +2350,7 @@ components:
       required: false
       description: |
         - If `resize_images` is set to `1`, specify the maximum width of the image in pixels. Default to '1000'
-      example: 1000
+      example: '1000'
 
     paramResizeMaxHeight:
       in: query
@@ -2342,7 +2360,7 @@ components:
       required: false
       description: |
         - If `resize_images` is set to `1`, specify the maximum height of the image in pixels. Default to '1000'
-      example: 1000
+      example: '1000'
 
     paramResizeFormat:
       in: query
@@ -2373,7 +2391,7 @@ components:
       required: false
       description: |
         - Upload the generated PDFs/images to our storage CDN, default to `1`. If you have configured `Post Action` to upload the PDFs/Images to your own S3, please set it to `0`.
-      example: 1
+      example: '1'
 
     paramExtractLink:
       in: query
@@ -2383,13 +2401,13 @@ components:
       required: false
       description: |
         - Extract links from the HTML content, default to `0`.
-      example: 0
+      example: '0'
 
     paramGenerationDelay:
       in: query
       name: generation_delay
       schema:
-        type: integer
+        type: int
       required: false
       description: |
         Delay in milliseconds before PDF/image generation
