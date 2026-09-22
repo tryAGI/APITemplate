@@ -8,7 +8,6 @@
     <PackAsTool>true</PackAsTool>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <PackageId>APITemplate.CLI</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <ToolCommandName>api-template</ToolCommandName>
     <UserSecretsId>APITemplate.CLI</UserSecretsId>
