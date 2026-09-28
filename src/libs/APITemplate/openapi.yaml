@@ -141,6 +141,11 @@ paths:
         - $ref: "#/components/parameters/paramResizeMaxWidth"
         - $ref: "#/components/parameters/paramResizeMaxHeight"
         - $ref: "#/components/parameters/paramResizeFormat"
+        - $ref: "#/components/parameters/paramEinvoice"
+        - $ref: "#/components/parameters/paramEinvoiceFormat"
+        - $ref: "#/components/parameters/paramEinvoiceProfile"
+        - $ref: "#/components/parameters/paramEinvoiceVersion"
+        - $ref: "#/components/parameters/paramEinvoiceValidate"
         - $ref: "#/components/parameters/paramPOSTACTIONS3FILEKEY"
         - $ref: "#/components/parameters/paramPOSTACTIONS3BUCKET"
         - $ref: "#/components/parameters/paramPOSTACTIONENABLED"   
@@ -157,7 +162,13 @@ paths:
           application/json:
             schema:
               type: object
-              description: JSON data
+              description: |
+                JSON data for the template. The key `einvoice_xml` is reserved: when `einvoice=true` it must hold the ZUGFeRD/Factur-X invoice XML as a string. It is removed from the data before the template is rendered.
+              properties:
+                einvoice_xml:
+                  type: string
+                  description: 'Reserved key. The ZUGFeRD/Factur-X invoice XML to embed, as a string. It must use the UN/CEFACT CII syntax with the root element `rsm:CrossIndustryInvoice` (`rsm:CrossIndustryDocument` for ZUGFeRD 1); UBL is not supported. It must not contain a DOCTYPE declaration. Required when `einvoice=true`; never passed to the template.'
+              additionalProperties: true
               example:
                 invoice_number: "INV38379"
                 date: "2021-09-30"
@@ -170,7 +181,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseSuccessPDFFile'
+                $ref: '#/components/schemas/ResponseSuccessCreatePDF'
 
         default:
           description: unexpected error
@@ -1828,6 +1839,22 @@ components:
               file: "s3://alphacloud-test-bucket/ab2e1bf7-cefa-42c7-929f-38d92b8bf8bf.pdf"
 
 
+    ResponseSuccessCreatePDF:
+      allOf:
+        - $ref: '#/components/schemas/ResponseSuccessPDFFile'
+        - type: object
+          properties:
+            einvoice_validation_status:
+              type: string
+              description: 'Overall ZUGFeRD/Factur-X validation status. Only returned when `einvoice=true`, `einvoice_validate=true` and `export_type=json` on a synchronous request.'
+              enum: ['valid', 'invalid']
+              example: 'valid'
+            einvoice_validation_details:
+              type: string
+              description: 'The full ZUGFeRD/Factur-X validation report (XML) produced by the validator. Only returned when `einvoice=true`, `einvoice_validate=true` and `export_type=json` on a synchronous request.'
+              example: '<?xml version="1.0" encoding="UTF-8"?><validation filename="output-einvoice.pdf">...<summary status="valid"/></validation>'
+
+
     ResponseSuccessImageFile:
       type: object
       properties:
@@ -2463,6 +2490,66 @@ components:
       required: false
       description: |
         - Specify the PDF format, either `pdf`(default) or `pdfa3b`
+
+    paramEinvoice:
+      in: query
+      name: einvoice
+      schema:
+        type: boolean
+      required: false
+      description: |
+        - **Experimental feature.** This is an experimental feature and may change or be removed in future releases.
+        - Set to `true` to convert the generated PDF into a ZUGFeRD/Factur-X PDF/A-3 e-invoice. The invoice XML is taken from the reserved `einvoice_xml` key of the JSON request body and embedded in the PDF.
+        - Only the literal values `true` and `false` are accepted. When omitted or `false`, the other `einvoice_*` parameters are ignored.
+        - Applies to PDF templates only. The conversion is the final step of PDF generation and runs after image downsampling (`image_resample_res`). It requires `output_format=pdf`; any other output format is rejected.
+      example: true
+
+    paramEinvoiceFormat:
+      in: query
+      name: einvoice_format
+      schema:
+        type: string
+        enum: ['fx', 'zf']
+      required: false
+      description: |
+        - Output format of the e-invoice, either `fx` (Factur-X) or `zf` (ZUGFeRD). Default to `fx`.
+      example: 'fx'
+
+    paramEinvoiceProfile:
+      in: query
+      name: einvoice_profile
+      schema:
+        type: string
+        enum: ['MINIMUM', 'BASICWL', 'BASIC', 'COMFORT', 'EN16931', 'EXTENDED-CTC-FR', 'EXTENDED', 'XRECHNUNG']
+      required: false
+      description: |
+        - ZUGFeRD/Factur-X profile. Default to `EN16931`. Profile names are case-sensitive. The valid profiles depend on `einvoice_version`:
+          - Version 1 supports: `BASIC`, `COMFORT`, `EXTENDED`.
+          - Version 2 supports: `MINIMUM`, `BASICWL`, `BASIC`, `EN16931`, `EXTENDED-CTC-FR`, `EXTENDED`, `XRECHNUNG`.
+        - A profile that is not valid for the selected version is rejected.
+      example: 'EN16931'
+
+    paramEinvoiceVersion:
+      in: query
+      name: einvoice_version
+      schema:
+        type: integer
+        enum: [1, 2]
+      required: false
+      description: |
+        - ZUGFeRD version, either `1` or `2`. Default to `2`.
+      example: 2
+
+    paramEinvoiceValidate:
+      in: query
+      name: einvoice_validate
+      schema:
+        type: boolean
+      required: false
+      description: |
+        - Set to `true` to validate the produced e-invoice. For a synchronous request with `export_type=json`, the response then includes `einvoice_validation_status` and `einvoice_validation_details`. Asynchronous requests and `export_type=file` do not return the result.
+        - Validation adds processing time that grows with the size of the PDF, and it does not change the outcome of the request. An invoice reported as `invalid` is still generated and returned, so that the report can be inspected.
+      example: false
 
     paramAsync:
       in: query

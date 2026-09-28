@@ -67,6 +67,11 @@ namespace APITemplate
             ref int? resizeMaxWidth,
             ref int? resizeMaxHeight,
             ref string? resizeFormat,
+            ref bool? einvoice,
+            ref global::APITemplate.CreatePdfEinvoiceFormat? einvoiceFormat,
+            ref global::APITemplate.CreatePdfEinvoiceProfile? einvoiceProfile,
+            ref int? einvoiceVersion,
+            ref bool? einvoiceValidate,
             ref string? postactionS3Filekey,
             ref string? postactionS3Bucket,
             ref string? postactionEnabled,
@@ -75,7 +80,7 @@ namespace APITemplate
             ref string? webhookUrl,
             ref string? webhookMethod,
             ref string? webhookHeaders,
-            object request);
+            global::APITemplate.CreatePdfRequest request);
         partial void PrepareCreatePdfRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -96,6 +101,11 @@ namespace APITemplate
             int? resizeMaxWidth,
             int? resizeMaxHeight,
             string? resizeFormat,
+            bool? einvoice,
+            global::APITemplate.CreatePdfEinvoiceFormat? einvoiceFormat,
+            global::APITemplate.CreatePdfEinvoiceProfile? einvoiceProfile,
+            int? einvoiceVersion,
+            bool? einvoiceValidate,
             string? postactionS3Filekey,
             string? postactionS3Bucket,
             string? postactionEnabled,
@@ -104,7 +114,7 @@ namespace APITemplate
             string? webhookUrl,
             string? webhookMethod,
             string? webhookHeaders,
-            object request);
+            global::APITemplate.CreatePdfRequest request);
         partial void ProcessCreatePdfResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -135,6 +145,11 @@ namespace APITemplate
         /// <param name="resizeMaxWidth"></param>
         /// <param name="resizeMaxHeight"></param>
         /// <param name="resizeFormat"></param>
+        /// <param name="einvoice"></param>
+        /// <param name="einvoiceFormat"></param>
+        /// <param name="einvoiceProfile"></param>
+        /// <param name="einvoiceVersion"></param>
+        /// <param name="einvoiceValidate"></param>
         /// <param name="postactionS3Filekey"></param>
         /// <param name="postactionS3Bucket"></param>
         /// <param name="postactionEnabled"></param>
@@ -147,10 +162,10 @@ namespace APITemplate
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::APITemplate.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::APITemplate.ResponseSuccessPDFFile> CreatePdfAsync(
+        public async global::System.Threading.Tasks.Task<global::APITemplate.ResponseSuccessCreatePDF> CreatePdfAsync(
             string templateId,
 
-            object request,
+            global::APITemplate.CreatePdfRequest request,
             string? exportType = default,
             string? exportInBase64 = default,
             int? expiration = default,
@@ -167,6 +182,11 @@ namespace APITemplate
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
+            bool? einvoice = default,
+            global::APITemplate.CreatePdfEinvoiceFormat? einvoiceFormat = default,
+            global::APITemplate.CreatePdfEinvoiceProfile? einvoiceProfile = default,
+            int? einvoiceVersion = default,
+            bool? einvoiceValidate = default,
             string? postactionS3Filekey = default,
             string? postactionS3Bucket = default,
             string? postactionEnabled = default,
@@ -198,6 +218,11 @@ namespace APITemplate
                 resizeMaxWidth: resizeMaxWidth,
                 resizeMaxHeight: resizeMaxHeight,
                 resizeFormat: resizeFormat,
+                einvoice: einvoice,
+                einvoiceFormat: einvoiceFormat,
+                einvoiceProfile: einvoiceProfile,
+                einvoiceVersion: einvoiceVersion,
+                einvoiceValidate: einvoiceValidate,
                 postactionS3Filekey: postactionS3Filekey,
                 postactionS3Bucket: postactionS3Bucket,
                 postactionEnabled: postactionEnabled,
@@ -233,6 +258,11 @@ namespace APITemplate
         /// <param name="resizeMaxWidth"></param>
         /// <param name="resizeMaxHeight"></param>
         /// <param name="resizeFormat"></param>
+        /// <param name="einvoice"></param>
+        /// <param name="einvoiceFormat"></param>
+        /// <param name="einvoiceProfile"></param>
+        /// <param name="einvoiceVersion"></param>
+        /// <param name="einvoiceValidate"></param>
         /// <param name="postactionS3Filekey"></param>
         /// <param name="postactionS3Bucket"></param>
         /// <param name="postactionEnabled"></param>
@@ -245,10 +275,10 @@ namespace APITemplate
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::APITemplate.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessPDFFile>> CreatePdfAsResponseAsync(
+        public async global::System.Threading.Tasks.Task<global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessCreatePDF>> CreatePdfAsResponseAsync(
             string templateId,
 
-            object request,
+            global::APITemplate.CreatePdfRequest request,
             string? exportType = default,
             string? exportInBase64 = default,
             int? expiration = default,
@@ -265,6 +295,11 @@ namespace APITemplate
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
+            bool? einvoice = default,
+            global::APITemplate.CreatePdfEinvoiceFormat? einvoiceFormat = default,
+            global::APITemplate.CreatePdfEinvoiceProfile? einvoiceProfile = default,
+            int? einvoiceVersion = default,
+            bool? einvoiceValidate = default,
             string? postactionS3Filekey = default,
             string? postactionS3Bucket = default,
             string? postactionEnabled = default,
@@ -299,6 +334,11 @@ namespace APITemplate
                 resizeMaxWidth: ref resizeMaxWidth,
                 resizeMaxHeight: ref resizeMaxHeight,
                 resizeFormat: ref resizeFormat,
+                einvoice: ref einvoice,
+                einvoiceFormat: ref einvoiceFormat,
+                einvoiceProfile: ref einvoiceProfile,
+                einvoiceVersion: ref einvoiceVersion,
+                einvoiceValidate: ref einvoiceValidate,
                 postactionS3Filekey: ref postactionS3Filekey,
                 postactionS3Bucket: ref postactionS3Bucket,
                 postactionEnabled: ref postactionEnabled,
@@ -355,6 +395,11 @@ namespace APITemplate
                                 .AddOptionalParameter("resize_max_width", resizeMaxWidth?.ToString())
                                 .AddOptionalParameter("resize_max_height", resizeMaxHeight?.ToString())
                                 .AddOptionalParameter("resize_format", resizeFormat)
+                                .AddOptionalParameter("einvoice", einvoice?.ToString().ToLowerInvariant())
+                                .AddOptionalParameter("einvoice_format", einvoiceFormat?.ToValueString())
+                                .AddOptionalParameter("einvoice_profile", einvoiceProfile?.ToValueString())
+                                .AddOptionalParameter("einvoice_version", einvoiceVersion?.ToString())
+                                .AddOptionalParameter("einvoice_validate", einvoiceValidate?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("postaction_s3_filekey", postactionS3Filekey)
                                 .AddOptionalParameter("postaction_s3_bucket", postactionS3Bucket)
                                 .AddOptionalParameter("postaction_enabled", postactionEnabled)
@@ -393,7 +438,7 @@ namespace APITemplate
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
                 }
             }
-                            var __httpRequestContentBody = global::System.Text.Json.JsonSerializer.Serialize(request, request.GetType(), JsonSerializerContext);
+                            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
                             var __httpRequestContent = new global::System.Net.Http.StringContent(
                                 content: __httpRequestContentBody,
                                 encoding: global::System.Text.Encoding.UTF8,
@@ -410,7 +455,7 @@ namespace APITemplate
                 PrepareCreatePdfRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    templateId: templateId!,
+                    templateId: templateId,
                     exportType: exportType,
                     exportInBase64: exportInBase64,
                     expiration: expiration,
@@ -427,6 +472,11 @@ namespace APITemplate
                     resizeMaxWidth: resizeMaxWidth,
                     resizeMaxHeight: resizeMaxHeight,
                     resizeFormat: resizeFormat,
+                    einvoice: einvoice,
+                    einvoiceFormat: einvoiceFormat,
+                    einvoiceProfile: einvoiceProfile,
+                    einvoiceVersion: einvoiceVersion,
+                    einvoiceValidate: einvoiceValidate,
                     postactionS3Filekey: postactionS3Filekey,
                     postactionS3Bucket: postactionS3Bucket,
                     postactionEnabled: postactionEnabled,
@@ -457,7 +507,7 @@ namespace APITemplate
                                 pathTemplate: "\"/v2/create-pdf\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: null,
                                 clientOptions: Options,
@@ -491,7 +541,7 @@ namespace APITemplate
                                 pathTemplate: "\"/v2/create-pdf\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: __exception,
                                 clientOptions: Options,
@@ -532,7 +582,7 @@ namespace APITemplate
                                 pathTemplate: "\"/v2/create-pdf\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -580,7 +630,7 @@ namespace APITemplate
                                 pathTemplate: "\"/v2/create-pdf\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -602,7 +652,7 @@ namespace APITemplate
                                 pathTemplate: "\"/v2/create-pdf\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -673,9 +723,9 @@ namespace APITemplate
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::APITemplate.ResponseSuccessPDFFile.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::APITemplate.ResponseSuccessCreatePDF.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessPDFFile>(
+                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessCreatePDF>(
                                         statusCode: __response.StatusCode,
                                         headers: global::APITemplate.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -705,9 +755,9 @@ namespace APITemplate
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::APITemplate.ResponseSuccessPDFFile.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::APITemplate.ResponseSuccessCreatePDF.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessPDFFile>(
+                                    return new global::APITemplate.AutoSDKHttpResponse<global::APITemplate.ResponseSuccessCreatePDF>(
                                         statusCode: __response.StatusCode,
                                         headers: global::APITemplate.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -768,6 +818,11 @@ namespace APITemplate
         /// <param name="resizeMaxWidth"></param>
         /// <param name="resizeMaxHeight"></param>
         /// <param name="resizeFormat"></param>
+        /// <param name="einvoice"></param>
+        /// <param name="einvoiceFormat"></param>
+        /// <param name="einvoiceProfile"></param>
+        /// <param name="einvoiceVersion"></param>
+        /// <param name="einvoiceValidate"></param>
         /// <param name="postactionS3Filekey"></param>
         /// <param name="postactionS3Bucket"></param>
         /// <param name="postactionEnabled"></param>
@@ -776,10 +831,13 @@ namespace APITemplate
         /// <param name="webhookUrl"></param>
         /// <param name="webhookMethod"></param>
         /// <param name="webhookHeaders"></param>
+        /// <param name="einvoiceXml">
+        /// Reserved key. The ZUGFeRD/Factur-X invoice XML to embed, as a string. It must use the UN/CEFACT CII syntax with the root element `rsm:CrossIndustryInvoice` (`rsm:CrossIndustryDocument` for ZUGFeRD 1); UBL is not supported. It must not contain a DOCTYPE declaration. Required when `einvoice=true`; never passed to the template.
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::APITemplate.ResponseSuccessPDFFile> CreatePdfAsync(
+        public async global::System.Threading.Tasks.Task<global::APITemplate.ResponseSuccessCreatePDF> CreatePdfAsync(
             string templateId,
             string? exportType = default,
             string? exportInBase64 = default,
@@ -797,6 +855,11 @@ namespace APITemplate
             int? resizeMaxWidth = default,
             int? resizeMaxHeight = default,
             string? resizeFormat = default,
+            bool? einvoice = default,
+            global::APITemplate.CreatePdfEinvoiceFormat? einvoiceFormat = default,
+            global::APITemplate.CreatePdfEinvoiceProfile? einvoiceProfile = default,
+            int? einvoiceVersion = default,
+            bool? einvoiceValidate = default,
             string? postactionS3Filekey = default,
             string? postactionS3Bucket = default,
             string? postactionEnabled = default,
@@ -805,11 +868,13 @@ namespace APITemplate
             string? webhookUrl = default,
             string? webhookMethod = default,
             string? webhookHeaders = default,
+            string? einvoiceXml = default,
             global::APITemplate.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new object
+            var __request = new global::APITemplate.CreatePdfRequest
             {
+                EinvoiceXml = einvoiceXml,
             };
 
             return await CreatePdfAsync(
@@ -830,6 +895,11 @@ namespace APITemplate
                 resizeMaxWidth: resizeMaxWidth,
                 resizeMaxHeight: resizeMaxHeight,
                 resizeFormat: resizeFormat,
+                einvoice: einvoice,
+                einvoiceFormat: einvoiceFormat,
+                einvoiceProfile: einvoiceProfile,
+                einvoiceVersion: einvoiceVersion,
+                einvoiceValidate: einvoiceValidate,
                 postactionS3Filekey: postactionS3Filekey,
                 postactionS3Bucket: postactionS3Bucket,
                 postactionEnabled: postactionEnabled,
