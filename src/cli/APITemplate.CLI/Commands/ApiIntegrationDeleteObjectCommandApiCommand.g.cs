@@ -34,6 +34,8 @@ internal static partial class ApiIntegrationDeleteObjectCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"delete-object", @"Delete an Object
@@ -61,6 +63,7 @@ Delete a PDF or an image from CDN and mark the transaction as deleted
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }
