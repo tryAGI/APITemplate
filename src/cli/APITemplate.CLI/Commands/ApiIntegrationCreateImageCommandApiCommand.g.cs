@@ -144,6 +144,8 @@ internal static partial class ApiIntegrationCreateImageCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"create-image", @"Create an Image
@@ -236,6 +238,7 @@ This endpoint creates a JPEG file(along with PNG) with JSON data and your templa
                                     cancellationToken).ConfigureAwait(false);
                                 }
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

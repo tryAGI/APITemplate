@@ -72,6 +72,8 @@ internal static partial class TemplateManagementUpdateTemplateCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"update-template", @"Update PDF Template
@@ -127,6 +129,7 @@ This endpoint updates PDF template (**This is an experimental API, contact suppo
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

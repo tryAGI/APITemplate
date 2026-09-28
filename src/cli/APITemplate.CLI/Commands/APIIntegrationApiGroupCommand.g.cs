@@ -4,8 +4,10 @@ using System.CommandLine;
 
 namespace APITemplate.CLI.Commands;
 
-internal static class APIIntegrationApiGroupCommand
+internal static partial class APIIntegrationApiGroupCommand
 {
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"api-integration", @"API Integration endpoint commands.");
@@ -17,6 +19,7 @@ internal static class APIIntegrationApiGroupCommand
                          command.Subcommands.Add(ApiIntegrationCreatePdfFromUrlCommandApiCommand.Create());
                          command.Subcommands.Add(ApiIntegrationDeleteObjectCommandApiCommand.Create());
                          command.Subcommands.Add(ApiIntegrationListObjectsCommandApiCommand.Create());
+        CustomizeCommand(ref command);
         return command;
     }
 }

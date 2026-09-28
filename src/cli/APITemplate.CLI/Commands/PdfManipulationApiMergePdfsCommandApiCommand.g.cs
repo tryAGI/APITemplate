@@ -112,6 +112,8 @@ internal static partial class PdfManipulationApiMergePdfsCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"merge-pdfs", @"Join/Merge multiple PDFs
@@ -179,6 +181,7 @@ This endpoint merges/joins multiple PDF URLs into a single PDF file");
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }
