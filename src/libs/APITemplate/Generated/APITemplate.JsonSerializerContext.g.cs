@@ -17,6 +17,20 @@ namespace APITemplate
 
             typeof(global::APITemplate.JsonConverters.ResponseSuccessStatusNullableJsonConverter),
 
+            typeof(global::APITemplate.JsonConverters.ResponseSuccessCreatePDFVariant2EinvoiceValidationStatusJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.ResponseSuccessCreatePDFVariant2EinvoiceValidationStatusNullableJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.CreatePdfEinvoiceFormatJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.CreatePdfEinvoiceFormatNullableJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.CreatePdfEinvoiceProfileJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.CreatePdfEinvoiceProfileNullableJsonConverter),
+
+            typeof(global::APITemplate.JsonConverters.ResponseSuccessCreatePDFJsonConverter),
+
             typeof(global::APITemplate.JsonConverters.UnixTimestampJsonConverter),
         })]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.JsonSerializerContextTypes))]
@@ -30,6 +44,9 @@ namespace APITemplate
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessPDFFilePostAction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessPDFFilePostAction))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessCreatePDF), TypeInfoPropertyName = "ResponseSuccessCreatePDF2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessCreatePDFVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessCreatePDFVariant2EinvoiceValidationStatus), TypeInfoPropertyName = "ResponseSuccessCreatePDFVariant2EinvoiceValidationStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessImageFile))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessImageFilePostAction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessImageFilePostAction))]
@@ -46,12 +63,15 @@ namespace APITemplate
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.ResponseSuccessQueryImageTemplate))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.PDFGenerationSettingsObject))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(bool))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfFromHtmlRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfFromUrlRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfFromMarkdownRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.UpdateTemplateRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.UpdateTemplateRequestSettings))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.MergePdfsRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfEinvoiceFormat), TypeInfoPropertyName = "CreatePdfEinvoiceFormat2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::APITemplate.CreatePdfEinvoiceProfile), TypeInfoPropertyName = "CreatePdfEinvoiceProfile2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::APITemplate.ResponseSuccessPDFFilePostAction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::APITemplate.ResponseSuccessImageFilePostAction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::APITemplate.ResponseSuccessListTemplatesTemplate>))]

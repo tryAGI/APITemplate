@@ -139,6 +139,44 @@ internal static partial class ApiIntegrationCreatePdfCommandApiCommand
 ",
     };
 
+    private static Option<bool?> Einvoice { get; } = CliRuntime.CreateNullableBoolOption(
+        name: @"--einvoice",
+        description: @"- **Experimental feature.** This is an experimental feature and may change or be removed in future releases.
+- Set to `true` to convert the generated PDF into a ZUGFeRD/Factur-X PDF/A-3 e-invoice. The invoice XML is taken from the reserved `einvoice_xml` key of the JSON request body and embedded in the PDF.
+- Only the literal values `true` and `false` are accepted. When omitted or `false`, the other `einvoice_*` parameters are ignored.
+- Applies to PDF templates only. The conversion is the final step of PDF generation and runs after image downsampling (`image_resample_res`). It requires `output_format=pdf`; any other output format is rejected.
+");
+
+    private static Option<global::APITemplate.CreatePdfEinvoiceFormat?> EinvoiceFormat { get; } = new(
+        name: @"--einvoice-format")
+    {
+        Description = @"- Output format of the e-invoice, either `fx` (Factur-X) or `zf` (ZUGFeRD). Default to `fx`.
+",
+    };
+
+    private static Option<global::APITemplate.CreatePdfEinvoiceProfile?> EinvoiceProfile { get; } = new(
+        name: @"--einvoice-profile")
+    {
+        Description = @"- ZUGFeRD/Factur-X profile. Default to `EN16931`. Profile names are case-sensitive. The valid profiles depend on `einvoice_version`:
+  - Version 1 supports: `BASIC`, `COMFORT`, `EXTENDED`.
+  - Version 2 supports: `MINIMUM`, `BASICWL`, `BASIC`, `EN16931`, `EXTENDED-CTC-FR`, `EXTENDED`, `XRECHNUNG`.
+- A profile that is not valid for the selected version is rejected.
+",
+    };
+
+    private static Option<int?> EinvoiceVersion { get; } = new(
+        name: @"--einvoice-version")
+    {
+        Description = @"- ZUGFeRD version, either `1` or `2`. Default to `2`.
+",
+    };
+
+    private static Option<bool?> EinvoiceValidate { get; } = CliRuntime.CreateNullableBoolOption(
+        name: @"--einvoice-validate",
+        description: @"- Set to `true` to validate the produced e-invoice. For a synchronous request with `export_type=json`, the response then includes `einvoice_validation_status` and `einvoice_validation_details`. Asynchronous requests and `export_type=file` do not return the result.
+- Validation adds processing time that grows with the size of the PDF, and it does not change the outcome of the request. An invoice reported as `invalid` is still generated and returned, so that the report can be inspected.
+");
+
     private static Option<string?> PostactionS3Filekey { get; } = new(
         name: @"--postaction-s3-filekey")
     {
@@ -231,6 +269,12 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
   ```
 ",
     };
+
+    private static Option<string?> EinvoiceXml { get; } = new(
+        name: @"--einvoice-xml")
+    {
+        Description = @"Reserved key. The ZUGFeRD/Factur-X invoice XML to embed, as a string. It must use the UN/CEFACT CII syntax with the root element `rsm:CrossIndustryInvoice` (`rsm:CrossIndustryDocument` for ZUGFeRD 1); UBL is not supported. It must not contain a DOCTYPE declaration. Required when `einvoice=true`; never passed to the template.",
+    };
       private static Option<string?> Input { get; } = new(@"--input")
       {
           Description = "Load request JSON from a file path, '-' for stdin, or an inline JSON object/array string.",
@@ -248,7 +292,7 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
           Hidden = true,
       };
 
-                    private static string FormatResponse(ParseResult parseResult, global::APITemplate.ResponseSuccessPDFFile value, global::System.Text.Json.Serialization.JsonSerializerContext context, bool truncateLongStrings)
+                    private static string FormatResponse(ParseResult parseResult, global::APITemplate.ResponseSuccessCreatePDF value, global::System.Text.Json.Serialization.JsonSerializerContext context, bool truncateLongStrings)
                     {
                         string? text = null;
                         CustomizeResponseText(parseResult, value, ref text);
@@ -264,7 +308,7 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
                         return CliRuntime.FormatHumanReadable(value, context, truncateLongStrings, hints);
                     }
 
-                    static partial void CustomizeResponseText(ParseResult parseResult, global::APITemplate.ResponseSuccessPDFFile value, ref string? text);
+                    static partial void CustomizeResponseText(ParseResult parseResult, global::APITemplate.ResponseSuccessCreatePDF value, ref string? text);
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
@@ -289,6 +333,11 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                         command.Options.Add(ResizeMaxWidth);
                         command.Options.Add(ResizeMaxHeight);
                         command.Options.Add(ResizeFormat);
+                        command.Options.Add(Einvoice);
+                        command.Options.Add(EinvoiceFormat);
+                        command.Options.Add(EinvoiceProfile);
+                        command.Options.Add(EinvoiceVersion);
+                        command.Options.Add(EinvoiceValidate);
                         command.Options.Add(PostactionS3Filekey);
                         command.Options.Add(PostactionS3Bucket);
                         command.Options.Add(PostactionEnabled);
@@ -297,6 +346,7 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                         command.Options.Add(WebhookUrl);
                         command.Options.Add(WebhookMethod);
                         command.Options.Add(WebhookHeaders);
+                        command.Options.Add(EinvoiceXml);
           command.Options.Add(Input);
           command.Options.Add(RequestJson);
           command.Options.Add(RequestFile);
@@ -306,15 +356,22 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
               var hasRequestJson = result.GetResult(RequestJson) is not null;
               var hasRequestFile = result.GetResult(RequestFile) is not null;
               var specifiedCount = (hasInput ? 1 : 0) + (hasRequestJson ? 1 : 0) + (hasRequestFile ? 1 : 0);
-              if (specifiedCount != 1)
+              if (specifiedCount > 1)
               {
-                  result.AddError(@"Specify exactly one of --input, --request-json, or --request-file.");
+                  result.AddError(@"Specify at most one of --input, --request-json, or --request-file.");
               }
           });
 
         command.SetAction(async (ParseResult parseResult, CancellationToken cancellationToken) =>
             await CliRuntime.RunAsync(async () =>
             {
+                        var __requestBase = await CliRuntime.ReadRequestOrDefaultAsync<global::APITemplate.CreatePdfRequest>(
+                            parseResult,
+                            Input,
+                            RequestJson,
+                            RequestFile,
+                            global::APITemplate.SourceGenerationContext.Default,
+                            cancellationToken).ConfigureAwait(false);
                         var templateId = parseResult.GetRequiredValue(TemplateId);
                         var exportType = parseResult.GetValue(ExportType);
                         var exportInBase64 = parseResult.GetValue(ExportInBase64);
@@ -332,6 +389,11 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                         var resizeMaxWidth = parseResult.GetValue(ResizeMaxWidth);
                         var resizeMaxHeight = parseResult.GetValue(ResizeMaxHeight);
                         var resizeFormat = parseResult.GetValue(ResizeFormat);
+                        var einvoice = parseResult.GetValue(Einvoice);
+                        var einvoiceFormat = parseResult.GetValue(EinvoiceFormat);
+                        var einvoiceProfile = parseResult.GetValue(EinvoiceProfile);
+                        var einvoiceVersion = parseResult.GetValue(EinvoiceVersion);
+                        var einvoiceValidate = parseResult.GetValue(EinvoiceValidate);
                         var postactionS3Filekey = parseResult.GetValue(PostactionS3Filekey);
                         var postactionS3Bucket = parseResult.GetValue(PostactionS3Bucket);
                         var postactionEnabled = parseResult.GetValue(PostactionEnabled);
@@ -340,13 +402,7 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                         var webhookUrl = parseResult.GetValue(WebhookUrl);
                         var webhookMethod = parseResult.GetValue(WebhookMethod);
                         var webhookHeaders = parseResult.GetValue(WebhookHeaders);
-                        var request = await CliRuntime.ReadRequestAsync<object>(
-                            parseResult,
-                            Input,
-                            RequestJson,
-                            RequestFile,
-                            global::APITemplate.SourceGenerationContext.Default,
-                            cancellationToken).ConfigureAwait(false);
+                        var einvoiceXml = CliRuntime.WasSpecified(parseResult, EinvoiceXml) ? parseResult.GetValue(EinvoiceXml) : (__requestBase is { } __EinvoiceXmlBaseValue ? __EinvoiceXmlBaseValue.EinvoiceXml : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
@@ -368,6 +424,11 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                                     resizeMaxWidth: resizeMaxWidth,
                                     resizeMaxHeight: resizeMaxHeight,
                                     resizeFormat: resizeFormat,
+                                    einvoice: einvoice,
+                                    einvoiceFormat: einvoiceFormat,
+                                    einvoiceProfile: einvoiceProfile,
+                                    einvoiceVersion: einvoiceVersion,
+                                    einvoiceValidate: einvoiceValidate,
                                     postactionS3Filekey: postactionS3Filekey,
                                     postactionS3Bucket: postactionS3Bucket,
                                     postactionEnabled: postactionEnabled,
@@ -376,24 +437,16 @@ This endpoint creates a PDF file with JSON data and your template. We support sy
                                     webhookUrl: webhookUrl,
                                     webhookMethod: webhookMethod,
                                     webhookHeaders: webhookHeaders,
-                                    request: request,
+                                    einvoiceXml: einvoiceXml,
                                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
 
-                                if (!await CliRuntime.TryWriteOutputDirectoryAsync(
-                                        parseResult,
-                                        response,
-                                        global::APITemplate.SourceGenerationContext.Default,
-                                        @"PostActions",
-                                        cancellationToken).ConfigureAwait(false))
-                                {
                                 await CliRuntime.WriteResponseAsync(
                                     parseResult,
                                     response,
                                     global::APITemplate.SourceGenerationContext.Default,
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
-                                }
             }, cancellationToken).ConfigureAwait(false));
         return command;
     }

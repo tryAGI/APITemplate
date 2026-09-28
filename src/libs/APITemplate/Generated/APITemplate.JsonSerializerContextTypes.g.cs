@@ -69,91 +69,115 @@ namespace APITemplate
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessImageFile? Type9 { get; set; }
+        public global::APITemplate.ResponseSuccessCreatePDF? Type9 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessImageFilePostAction>? Type10 { get; set; }
+        public global::APITemplate.ResponseSuccessCreatePDFVariant2? Type10 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessImageFilePostAction? Type11 { get; set; }
+        public global::APITemplate.ResponseSuccessCreatePDFVariant2EinvoiceValidationStatus? Type11 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessListTemplates? Type12 { get; set; }
+        public global::APITemplate.ResponseSuccessImageFile? Type12 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessListTemplatesTemplate>? Type13 { get; set; }
+        public global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessImageFilePostAction>? Type13 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessListTemplatesTemplate? Type14 { get; set; }
+        public global::APITemplate.ResponseSuccessImageFilePostAction? Type14 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessListObjects? Type15 { get; set; }
+        public global::APITemplate.ResponseSuccessListTemplates? Type15 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<object>? Type16 { get; set; }
+        public global::System.Collections.Generic.IList<global::APITemplate.ResponseSuccessListTemplatesTemplate>? Type16 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public object? Type17 { get; set; }
+        public global::APITemplate.ResponseSuccessListTemplatesTemplate? Type17 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessDeleteObject? Type18 { get; set; }
+        public global::APITemplate.ResponseSuccessListObjects? Type18 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessAccountInformation? Type19 { get; set; }
+        public global::System.Collections.Generic.IList<object>? Type19 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.DateTime? Type20 { get; set; }
+        public object? Type20 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessSingleFile? Type21 { get; set; }
+        public global::APITemplate.ResponseSuccessDeleteObject? Type21 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.ResponseSuccessQueryImageTemplate? Type22 { get; set; }
+        public global::APITemplate.ResponseSuccessAccountInformation? Type22 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.PDFGenerationSettingsObject? Type23 { get; set; }
+        public global::System.DateTime? Type23 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public bool? Type24 { get; set; }
+        public global::APITemplate.ResponseSuccessSingleFile? Type24 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.CreatePdfFromHtmlRequest? Type25 { get; set; }
+        public global::APITemplate.ResponseSuccessQueryImageTemplate? Type25 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.CreatePdfFromUrlRequest? Type26 { get; set; }
+        public global::APITemplate.PDFGenerationSettingsObject? Type26 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.CreatePdfFromMarkdownRequest? Type27 { get; set; }
+        public bool? Type27 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.UpdateTemplateRequest? Type28 { get; set; }
+        public global::APITemplate.CreatePdfRequest? Type28 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.UpdateTemplateRequestSettings? Type29 { get; set; }
+        public global::APITemplate.CreatePdfFromHtmlRequest? Type29 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::APITemplate.MergePdfsRequest? Type30 { get; set; }
+        public global::APITemplate.CreatePdfFromUrlRequest? Type30 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.CreatePdfFromMarkdownRequest? Type31 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.UpdateTemplateRequest? Type32 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.UpdateTemplateRequestSettings? Type33 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.MergePdfsRequest? Type34 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.CreatePdfEinvoiceFormat? Type35 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::APITemplate.CreatePdfEinvoiceProfile? Type36 { get; set; }
 
         /// <summary>
         ///
