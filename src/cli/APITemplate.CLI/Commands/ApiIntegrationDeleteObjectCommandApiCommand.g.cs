@@ -36,9 +36,9 @@ internal static partial class ApiIntegrationDeleteObjectCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"delete-object", @"Delete an Object
+        var command = new Command(commandName ?? @"delete-object", @"Delete an Object
 Delete a PDF or an image from CDN and mark the transaction as deleted
 ");
                         command.Options.Add(TransactionRef);

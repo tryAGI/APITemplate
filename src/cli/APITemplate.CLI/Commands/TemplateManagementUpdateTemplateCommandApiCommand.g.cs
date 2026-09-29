@@ -74,9 +74,9 @@ internal static partial class TemplateManagementUpdateTemplateCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"update-template", @"Update PDF Template
+        var command = new Command(commandName ?? @"update-template", @"Update PDF Template
 This endpoint updates PDF template (**This is an experimental API, contact support to learn more**)");
                         command.Options.Add(TemplateId);
                         command.Options.Add(Body);

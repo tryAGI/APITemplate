@@ -235,9 +235,9 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-pdf-from-markdown", @"Create a PDF from Markdown
+        var command = new Command(commandName ?? @"create-pdf-from-markdown", @"Create a PDF from Markdown
 - This endpoint creates a PDF file from Markdown
 ");
                         command.Options.Add(ExportType);

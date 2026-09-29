@@ -65,9 +65,9 @@ internal static partial class TemplateManagementListTemplatesCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"list-templates", @"List Templates
+        var command = new Command(commandName ?? @"list-templates", @"List Templates
 Retrieves the information of templates
 ");
                         command.Options.Add(Limit);

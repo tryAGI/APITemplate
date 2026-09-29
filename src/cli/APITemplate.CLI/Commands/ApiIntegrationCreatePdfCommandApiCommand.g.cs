@@ -314,9 +314,9 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-pdf", @"Create a PDF
+        var command = new Command(commandName ?? @"create-pdf", @"Create a PDF
 This endpoint creates a PDF file with JSON data and your template. We support synchoronus and asynchronous PDF generation.");
                         command.Options.Add(TemplateId);
                         command.Options.Add(ExportType);

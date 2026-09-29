@@ -35,9 +35,9 @@ internal static partial class TemplateManagementGetTemplateCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"get-template", @"Get PDF template
+        var command = new Command(commandName ?? @"get-template", @"Get PDF template
 Retrieves information of the PDF template (**This is an experimental API, contact support to learn more**)
 ");
                         command.Options.Add(TemplateId);
