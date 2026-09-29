@@ -146,9 +146,9 @@ internal static partial class ApiIntegrationCreateImageCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-image", @"Create an Image
+        var command = new Command(commandName ?? @"create-image", @"Create an Image
 This endpoint creates a JPEG file(along with PNG) with JSON data and your template
 ");
                         command.Options.Add(TemplateId);

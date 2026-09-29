@@ -235,9 +235,9 @@ https://yourwebserver.com?&primary_url=https%3A%2F%2Fpub-cdn.apitemplate.io%2F20
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-pdf-from-html", @"Create a PDF from HTML
+        var command = new Command(commandName ?? @"create-pdf-from-html", @"Create a PDF from HTML
 - This endpoint creates a PDF file from HTML with JSON data
 ");
                         command.Options.Add(ExportType);

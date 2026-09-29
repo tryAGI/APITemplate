@@ -114,9 +114,9 @@ internal static partial class PdfManipulationApiMergePdfsCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"merge-pdfs", @"Join/Merge multiple PDFs
+        var command = new Command(commandName ?? @"merge-pdfs", @"Join/Merge multiple PDFs
 This endpoint merges/joins multiple PDF URLs into a single PDF file");
                         command.Options.Add(PostactionS3Filekey);
                         command.Options.Add(PostactionS3Bucket);

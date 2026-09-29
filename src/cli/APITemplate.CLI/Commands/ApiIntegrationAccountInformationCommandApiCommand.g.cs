@@ -31,9 +31,9 @@ internal static partial class ApiIntegrationAccountInformationCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"account-information", @"Query account information
+        var command = new Command(commandName ?? @"account-information", @"Query account information
 Query Account information
 ");
 

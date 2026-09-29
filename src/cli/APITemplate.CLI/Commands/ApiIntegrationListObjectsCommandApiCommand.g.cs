@@ -59,9 +59,9 @@ internal static partial class ApiIntegrationListObjectsCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"list-objects", @"List Generated Objects
+        var command = new Command(commandName ?? @"list-objects", @"List Generated Objects
 Retrieves all the generated PDFs and images
 ");
                         command.Options.Add(Limit);
