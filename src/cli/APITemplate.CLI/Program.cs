@@ -14,5 +14,6 @@ rootCommand.Subcommands.Add(AuthCommand.Create());
 rootCommand.Subcommands.Add(APIIntegrationApiGroupCommand.Create());
 rootCommand.Subcommands.Add(PDFManipulationAPIApiGroupCommand.Create());
 rootCommand.Subcommands.Add(TemplateManagementApiGroupCommand.Create());
+rootCommand.Subcommands.Add(CliCompletion.CreateCommand(rootCommand, @"api-template"));
 
 return await rootCommand.Parse(args).InvokeAsync().ConfigureAwait(false);
