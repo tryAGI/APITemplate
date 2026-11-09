@@ -18,7 +18,7 @@ namespace APITemplate.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::APITemplate.CreatePdfEinvoiceFormatExtensions.ToEnum(stringValue) ?? default;
+                        return global::APITemplate.CreatePdfEinvoiceFormatExtensions.ToEnum(stringValue) ?? throw new global::System.Text.Json.JsonException($"Unknown value '{stringValue}' for global::APITemplate.CreatePdfEinvoiceFormat.");
                     }
 
                     break;
