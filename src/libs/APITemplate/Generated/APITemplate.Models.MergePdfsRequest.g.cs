@@ -32,7 +32,7 @@ namespace APITemplate
         /// <summary>
         /// - Expiration of the generated PDF in minutes(default to `0`, store permanently)<br/>
         ///   - Use `0` to store on cdn permanently<br/>
-        ///   - Or use the range between `1` minute and `43200` minutes(30 days) to specify the expiration of the generated PDF<br/>
+        ///   - Or use the range between `1` minute and `10080` minutes(7 days) to specify the expiration of the generated PDF<br/>
         /// Example: 5
         /// </summary>
         /// <example>5</example>
@@ -71,7 +71,7 @@ namespace APITemplate
         /// <param name="expiration">
         /// - Expiration of the generated PDF in minutes(default to `0`, store permanently)<br/>
         ///   - Use `0` to store on cdn permanently<br/>
-        ///   - Or use the range between `1` minute and `43200` minutes(30 days) to specify the expiration of the generated PDF<br/>
+        ///   - Or use the range between `1` minute and `10080` minutes(7 days) to specify the expiration of the generated PDF<br/>
         /// Example: 5
         /// </param>
         /// <param name="cloudStorage">

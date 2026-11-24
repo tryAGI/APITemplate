@@ -65,7 +65,7 @@ internal static partial class PdfManipulationApiMergePdfsCommandApiCommand
     {
         Description = @"- Expiration of the generated PDF in minutes(default to `0`, store permanently)
   - Use `0` to store on cdn permanently
-  - Or use the range between `1` minute and `43200` minutes(30 days) to specify the expiration of the generated PDF
+  - Or use the range between `1` minute and `10080` minutes(7 days) to specify the expiration of the generated PDF
 ",
     };
 
